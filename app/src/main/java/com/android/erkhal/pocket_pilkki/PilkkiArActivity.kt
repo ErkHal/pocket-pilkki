@@ -1,10 +1,8 @@
 package com.android.erkhal.pocket_pilkki
 
-import android.app.assist.AssistStructure
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
@@ -29,9 +27,11 @@ class PilkkiArActivity : AppCompatActivity() {
 
         arFragment.setOnTapArPlaneListener(
                 BaseArFragment.OnTapArPlaneListener { hitResult, _, _ ->
+
                     if (fishingPondRenderable == null) {
                         return@OnTapArPlaneListener
                     }
+
                     val anchor = hitResult!!.createAnchor()
                     val anchorNode = AnchorNode(anchor)
                     anchorNode.setParent(arFragment.arSceneView.scene)
