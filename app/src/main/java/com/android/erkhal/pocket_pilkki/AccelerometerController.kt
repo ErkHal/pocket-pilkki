@@ -10,8 +10,7 @@ import android.util.Log
 import kotlin.math.sqrt
 
 //Constants
-const val SHAKE_THRESHOLD_ACTIVITY = 5f
-const val SHAKE_SLOP_TIME_MS = 500
+const val SHAKE_THRESHOLD_ACTIVITY = 2f // G-Force required for fish jerk
 
 class AccelerometerController(ctx: Context): SensorEventListener {
 
@@ -57,8 +56,12 @@ class AccelerometerController(ctx: Context): SensorEventListener {
             //gForce is approx 1 when no movement
             val gForce = sqrt(gX * gX + gY * gY + gZ * gZ)
 
+
             if (gForce > SHAKE_THRESHOLD_ACTIVITY) {
-                    notifyActivity()
+
+                //call shake stuff
+                notifyActivity()
+
             }
         }
     }
