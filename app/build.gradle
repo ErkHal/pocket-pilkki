@@ -51,3 +51,8 @@ sceneform.asset('sampledata/Mesh_Fish.obj',
         'default',
         'sampledata/Mesh_Fish.sfa',
         'src/main/assets/Mesh_Fish')
+
+sceneform.asset('sampledata/Mesh_Trout.obj',
+        'default',
+        'sampledata/Mesh_Trout.sfa',
+        'src/main/assets/Mesh_Trout')
