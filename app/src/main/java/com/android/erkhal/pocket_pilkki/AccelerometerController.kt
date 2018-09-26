@@ -10,7 +10,7 @@ import android.util.Log
 import kotlin.math.sqrt
 
 //Constants
-const val SHAKE_THRESHOLD_ACTIVITY = 2f // G-Force required for fish jerk
+const val SHAKE_THRESHOLD_ACTIVITY = 1.5f // G-Force required for fish jerk
 
 class AccelerometerController(ctx: Context): SensorEventListener {
 
