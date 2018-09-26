@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Pocket-Pilkki</string>
+    <string name="progress_bar">Catching progress</string>
+    <string name="resume_fishing">Continue fishing ?</string>
+    <string name="fishspecies_salmon">Salmon</string>
+    <string name="fishspecies_salmon_description">Salmon are native to tributaries of the North Atlantic and Pacific Ocean.
+        Many species of salmon have been introduced into non-native environments such as the Great Lakes of North America and Patagonia in South America.
+        Salmon are intensively farmed in many parts of the world. </string>
+    <string name="fishspecies_pike">Northern Pike</string>
+    <string name="fishspecies_pike_description">Known simply as a pike in Britain, Ireland, most of Canada, and most parts of the United States (once called luce when fully grown; also called jackfish or simply "northern" in the U.S. Upper Midwest and in Manitoba),is a species of carnivorous fish of the genus Esox (the pikes).
+        They are typical of brackish and fresh waters of the Northern Hemisphere (i.e. holarctic in distribution). </string>
 </resources>

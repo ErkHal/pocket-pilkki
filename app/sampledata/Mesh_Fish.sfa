@@ -46,7 +46,7 @@
    },
    samplers: [
       {
-         file: "sampledata\\Tex_Salmon.png",
+         file: "sampledata/Tex_Salmon.png",
          name: "Tex_Salmon",
          pipeline_name: "Tex_Salmon.png",
       },

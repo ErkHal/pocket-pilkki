@@ -7,6 +7,10 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.android.erkhal.pocket_pilkki.persistence.AsyncTasks.AllCaughtFishAsyncTask
+import com.android.erkhal.pocket_pilkki.persistence.CaughtFish
+import com.android.erkhal.pocket_pilkki.persistence.FishDatabase
+import com.android.erkhal.pocket_pilkki.persistence.AsyncTasks.PersistCaughtFishAsyncTask
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
 import com.google.ar.sceneform.AnchorNode
@@ -15,6 +19,7 @@ import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.android.synthetic.main.activity_pilkki_ar.*
+import java.util.*
 
 
 // Constants
@@ -34,6 +39,7 @@ class PilkkiArActivity: AppCompatActivity(),
     private lateinit var fishingPondRenderable: ModelRenderable
     private lateinit var fishRenderable: ModelRenderable
 
+    // AR scene anchors
     private lateinit var fishingPondAnchor: Anchor
 
     // Fragments
@@ -46,7 +52,7 @@ class PilkkiArActivity: AppCompatActivity(),
     //fishing progress
     private var advancement: Int = 0
 
-    //timstamp for cooldown counting
+    //Timestamp for cooldown counting
     private var mShakeTimestamp: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,10 +67,16 @@ class PilkkiArActivity: AppCompatActivity(),
 
         accelerometerController = AccelerometerController(this)
 
-        arFragment.setOnTapArPlaneListener(
-                { hitResult, _, _ ->
+        arFragment.setOnTapArPlaneListener { hitResult, _, _ ->
                     spawnFishingPond(hitResult)
-                })
+                    fishingModeOn = true
+                    startFishingThread()
+                }
+
+        // #### DEBUGGING LISTING ALL CAUGHT FISH IN DB ######
+        val task = AllCaughtFishAsyncTask(FishDatabase.get(this))
+        task.execute()
+        // #####################
     }
 
     override fun onDeviceJerked() {
@@ -76,22 +88,27 @@ class PilkkiArActivity: AppCompatActivity(),
 
             if (advancement >= 100) {
                 fishCaught()
-                catchingModeOn = false
             }
 
             if (curTime > mShakeTimestamp + PROGRESS_INCREMENT_COOLDOWN) {
                 if (advancement <= 90) {
                     mShakeTimestamp = curTime
-                    advancement = advancement + 35
+                    advancement =+ advancement + 35
                     Log.d("ADV", "Progressbar: INCR $advancement")
                 }
             }
 
         } else if ( advancement < 100 && advancement > 0 && curTime > mShakeTimestamp + PROGRESS_DECREMENT_COOLDOWN){
-            advancement = advancement - 10
+            advancement =- advancement - 10
             Log.d("ADV", "Progressbar: DECR $advancement")
         }
         fishingBar.progress = advancement
+    }
+
+    // Persists the caught fish into database using AsyncTask run in a worker thread
+    private fun persistCaughtFish(caughtFish: CaughtFish) {
+        val task = PersistCaughtFishAsyncTask(FishDatabase.get(this))
+        task.execute(caughtFish)
     }
 
     override fun onFishGnawing() {
@@ -106,7 +123,7 @@ class PilkkiArActivity: AppCompatActivity(),
         }
     }
 
-    fun fishCaught() {
+    private fun fishCaught() {
 
         catchingModeOn = false
         fishingRunnable.quit()
@@ -116,7 +133,38 @@ class PilkkiArActivity: AppCompatActivity(),
         // Take net into hand
         rodView.setImageResource(R.drawable.net)
 
-        // Spawn fish on pond
+        spawnFish()
+
+        restartBtn.setOnClickListener {
+            resetGnawCounter()
+            rodView.setImageResource(R.drawable.fishingrod)
+            restartBtn.visibility = View.INVISIBLE
+            startCatching()
+        }
+    }
+
+    private fun resetGnawCounter() {
+        advancement = 0
+        fishingBar.progress = advancement
+    }
+
+    private fun spawnFishingPond(hitResult: HitResult) {
+
+        if(!fishingModeOn) {
+            fishingPondAnchor = hitResult.createAnchor()
+            val anchorNode = AnchorNode(fishingPondAnchor)
+            anchorNode.setParent(arFragment.arSceneView.scene)
+            val viewNode = TransformableNode(arFragment.transformationSystem)
+            viewNode.setParent(anchorNode)
+
+            disableViewNodeController(viewNode)
+
+            viewNode.renderable = fishingPondRenderable
+            viewNode.select()
+        }
+    }
+
+    private fun spawnFish() {
         val fishAnchor = fishingPondAnchor
         val anchorNode = AnchorNode(fishAnchor)
         anchorNode.setParent(arFragment.arSceneView.scene)
@@ -134,45 +182,6 @@ class PilkkiArActivity: AppCompatActivity(),
             fishNode.setParent(null)
             restartBtn.visibility = View.VISIBLE
             Log.d("CLICK", "Fish clicked")
-        }
-
-        restartBtn.setOnClickListener {
-            resetGnawCounter()
-            toggleFishingMode()
-            startFishingThread()
-
-            rodView.setImageResource(R.drawable.fishingrod)
-
-            restartBtn.visibility = View.INVISIBLE
-        }
-    }
-
-    private fun toggleFishingMode() {
-        fishingModeOn = !fishingModeOn
-    }
-
-    private fun resetGnawCounter() {
-        advancement = 0
-        fishingBar.progress = advancement
-
-    }
-
-    private fun spawnFishingPond(hitResult: HitResult) {
-
-        if(!fishingModeOn) {
-            fishingPondAnchor = hitResult.createAnchor()
-            val anchorNode = AnchorNode(fishingPondAnchor)
-            anchorNode.setParent(arFragment.arSceneView.scene)
-            val viewNode = TransformableNode(arFragment.transformationSystem)
-            viewNode.setParent(anchorNode)
-
-            disableViewNodeController(viewNode)
-
-            viewNode.renderable = fishingPondRenderable
-            viewNode.select()
-
-            toggleFishingMode()
-            startFishingThread()
         }
     }
 
@@ -213,7 +222,7 @@ class PilkkiArActivity: AppCompatActivity(),
     }
 
     private fun startCatching() {
-        toggleFishingMode()
+        fishingModeOn = true
         startFishingThread()
     }
 }
