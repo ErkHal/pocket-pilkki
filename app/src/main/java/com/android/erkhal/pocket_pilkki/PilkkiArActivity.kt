@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.android.erkhal.pocket_pilkki.global.GlobalFishSpecies
 import com.android.erkhal.pocket_pilkki.persistence.AsyncTasks.AllCaughtFishAsyncTask
 import com.android.erkhal.pocket_pilkki.persistence.CaughtFish
 import com.android.erkhal.pocket_pilkki.persistence.FishDatabase
@@ -20,6 +21,8 @@ import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.android.synthetic.main.activity_pilkki_ar.*
 import java.util.*
+import kotlin.collections.HashMap
+import kotlin.collections.HashSet
 
 
 // Constants
@@ -37,7 +40,7 @@ class PilkkiArActivity: AppCompatActivity(),
 
     //Renderables for the AR scene
     private lateinit var fishingPondRenderable: ModelRenderable
-    private lateinit var fishRenderable: ModelRenderable
+    private lateinit var fishRenderables: HashMap<String, ModelRenderable>
 
     // AR scene anchors
     private lateinit var fishingPondAnchor: Anchor
@@ -55,22 +58,20 @@ class PilkkiArActivity: AppCompatActivity(),
     //Timestamp for cooldown counting
     private var mShakeTimestamp: Long = 0
 
+    private lateinit var currentFish: CaughtFish
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pilkki_ar)
 
         setupFishingPondRenderable()
-
-        setupFishRenderable()
+        setupFishRenderables()
 
         arFragment = ar_fragment as ArFragment
-
         accelerometerController = AccelerometerController(this)
-
         arFragment.setOnTapArPlaneListener { hitResult, _, _ ->
                     spawnFishingPond(hitResult)
-                    fishingModeOn = true
-                    startFishingThread()
+                    startCatching()
                 }
 
         // #### DEBUGGING LISTING ALL CAUGHT FISH IN DB ######
@@ -123,12 +124,21 @@ class PilkkiArActivity: AppCompatActivity(),
         }
     }
 
+    private fun startCatching() {
+        fishingModeOn = true
+        startFishingThread()
+
+        currentFish = GlobalFishSpecies.getRandomizedFish()
+    }
+
     private fun fishCaught() {
 
         catchingModeOn = false
         fishingRunnable.quit()
-        Toast.makeText(this, "FISH CAUGHT HERRANJUMALA SENTÄÄ", Toast.LENGTH_LONG)
-                .show()
+        currentFish.caughtTimestamp = Date().time
+        persistCaughtFish(currentFish)
+
+        Toast.makeText(this, "$currentFish", Toast.LENGTH_LONG).show()
 
         // Take net into hand
         rodView.setImageResource(R.drawable.net)
@@ -175,7 +185,7 @@ class PilkkiArActivity: AppCompatActivity(),
 
         disableViewNodeController(fishNode)
 
-        fishNode.renderable = fishRenderable
+        fishNode.renderable = fishRenderables.get(currentFish.species)
         fishNode.select()
 
         fishNode.setOnTapListener { hitTestResult, motionEvent ->
@@ -208,21 +218,24 @@ class PilkkiArActivity: AppCompatActivity(),
         }
     }
 
-    private fun setupFishRenderable() {
+    private fun setupFishRenderables() {
 
-        val modelUri = Uri.parse("Mesh_Fish.sfb")
+        fishRenderables = HashMap()
 
-        val renderableFish = ModelRenderable.builder()
+        var modelUri = Uri.parse("Mesh_Fish.sfb")
+        val renderablePike = ModelRenderable.builder()
                 .setSource(this, modelUri)
                 .build()
-
-        renderableFish.thenAccept { it ->
-            fishRenderable = it
+        renderablePike.thenAccept { it ->
+            fishRenderables["Pike"] = it
         }
-    }
 
-    private fun startCatching() {
-        fishingModeOn = true
-        startFishingThread()
+        modelUri = Uri.parse("Mesh_Trout.sfb")
+        val renderableSalmon = ModelRenderable.builder()
+                .setSource(this, modelUri)
+                .build()
+        renderableSalmon.thenAccept { it ->
+            fishRenderables["Salmon"] = it
+        }
     }
 }

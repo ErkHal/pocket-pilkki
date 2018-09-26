@@ -12,17 +12,17 @@ data class CaughtFish(
 
         @PrimaryKey(autoGenerate = true) val uuid: Long,
 
-        val species: Int,
+        val species: String,
 
         val length: Float,
         val weight: Float,
-        val caughtTimestamp: Long) {
+        var caughtTimestamp: Long?) {
 
     override fun toString(): String {
-        return "Length: $length, Weight: $weight, Caught on: ${getCaughtDate()}"
+        return "Species: $species Length: ${length}cm, Weight: ${weight}g, Caught on: ${getCaughtDate()}"
     }
 
     fun getCaughtDate(): Date {
-        return Date(caughtTimestamp)
+        return Date(caughtTimestamp ?: 12345)
     }
 }
