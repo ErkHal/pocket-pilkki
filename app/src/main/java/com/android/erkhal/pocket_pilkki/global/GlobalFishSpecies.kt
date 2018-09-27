@@ -1,11 +1,5 @@
 package com.android.erkhal.pocket_pilkki.global
 
-import android.app.Application
-import android.content.Context
-import android.content.res.Resources
-import android.provider.Settings.Global.getString
-import android.util.Log
-import com.android.erkhal.pocket_pilkki.R
 import com.android.erkhal.pocket_pilkki.model.FishSpecies
 import com.android.erkhal.pocket_pilkki.persistence.CaughtFish
 import java.util.*

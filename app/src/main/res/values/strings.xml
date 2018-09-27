@@ -9,4 +9,9 @@
     <string name="fishspecies_pike">Northern Pike</string>
     <string name="fishspecies_pike_description">Known simply as a pike in Britain, Ireland, most of Canada, and most parts of the United States (once called luce when fully grown; also called jackfish or simply "northern" in the U.S. Upper Midwest and in Manitoba),is a species of carnivorous fish of the genus Esox (the pikes).
         They are typical of brackish and fresh waters of the Northern Hemisphere (i.e. holarctic in distribution). </string>
+    <string name="dialog_fish_caught">Fish caught !</string>
+    <string name="fish_caught_positive">Save to my fish</string>
+    <string name="fish_caught_negative">Release</string>
+    <string name="fish_caught_view_species">Species:</string>
+    <string name="fish_caught_view_measurements">Measurements:</string>
 </resources>

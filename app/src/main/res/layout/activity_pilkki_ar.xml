@@ -49,18 +49,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/restartBtn"
-        android:layout_width="173dp"
-        android:layout_height="59dp"
-        android:layout_marginBottom="508dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/resume_fishing"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/ar_fragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
-
 </android.support.constraint.ConstraintLayout>

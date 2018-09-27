@@ -2,16 +2,20 @@ package com.android.erkhal.pocket_pilkki
 
 import android.content.Context
 import android.net.Uri
-import android.os.*
+import android.os.Bundle
+import android.os.Handler
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.View
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import com.android.erkhal.pocket_pilkki.global.GlobalFishSpecies
 import com.android.erkhal.pocket_pilkki.persistence.AsyncTasks.AllCaughtFishAsyncTask
+import com.android.erkhal.pocket_pilkki.persistence.AsyncTasks.PersistCaughtFishAsyncTask
 import com.android.erkhal.pocket_pilkki.persistence.CaughtFish
 import com.android.erkhal.pocket_pilkki.persistence.FishDatabase
-import com.android.erkhal.pocket_pilkki.persistence.AsyncTasks.PersistCaughtFishAsyncTask
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
 import com.google.ar.sceneform.AnchorNode
@@ -20,9 +24,9 @@ import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
 import kotlinx.android.synthetic.main.activity_pilkki_ar.*
+import kotlinx.android.synthetic.main.dialog_caught_fish_info.view.*
 import java.util.*
 import kotlin.collections.HashMap
-import kotlin.collections.HashSet
 
 
 // Constants
@@ -58,7 +62,8 @@ class PilkkiArActivity: AppCompatActivity(),
     //Timestamp for cooldown counting
     private var mShakeTimestamp: Long = 0
 
-    private lateinit var currentFish: CaughtFish
+    // The current fish to be caught is stored in this variable
+    private var currentFish: CaughtFish? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,7 +90,6 @@ class PilkkiArActivity: AppCompatActivity(),
         val curTime = System.currentTimeMillis()
 
         if (catchingModeOn) {
-            Log.d("asdfg", "YEAAA BOIIIII")
 
             if (advancement >= 100) {
                 fishCaught()
@@ -116,7 +120,7 @@ class PilkkiArActivity: AppCompatActivity(),
 
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         catchingModeOn = true
-        vibrator.vibrate(CATCHING_MODE_DURATION_MILLIS)
+        vibrator.vibrate(VibrationEffect.createOneShot(CATCHING_MODE_DURATION_MILLIS, VibrationEffect.DEFAULT_AMPLITUDE))
         this.runOnUiThread {
             run {
                 Handler().postDelayed({ catchingModeOn = false }, CATCHING_MODE_DURATION_MILLIS)
@@ -126,8 +130,9 @@ class PilkkiArActivity: AppCompatActivity(),
 
     private fun startCatching() {
         fishingModeOn = true
+        resetGnawCounter()
         startFishingThread()
-
+        rodView.setImageResource(R.drawable.fishingrod)
         currentFish = GlobalFishSpecies.getRandomizedFish()
     }
 
@@ -135,22 +140,11 @@ class PilkkiArActivity: AppCompatActivity(),
 
         catchingModeOn = false
         fishingRunnable.quit()
-        currentFish.caughtTimestamp = Date().time
-        persistCaughtFish(currentFish)
-
-        Toast.makeText(this, "$currentFish", Toast.LENGTH_LONG).show()
+        currentFish?.caughtTimestamp = Date().time
 
         // Take net into hand
         rodView.setImageResource(R.drawable.net)
-
         spawnFish()
-
-        restartBtn.setOnClickListener {
-            resetGnawCounter()
-            rodView.setImageResource(R.drawable.fishingrod)
-            restartBtn.visibility = View.INVISIBLE
-            startCatching()
-        }
     }
 
     private fun resetGnawCounter() {
@@ -178,21 +172,57 @@ class PilkkiArActivity: AppCompatActivity(),
         val fishAnchor = fishingPondAnchor
         val anchorNode = AnchorNode(fishAnchor)
         anchorNode.setParent(arFragment.arSceneView.scene)
-        var fishNode = TransformableNode(arFragment.transformationSystem)
+        val fishNode = TransformableNode(arFragment.transformationSystem)
         fishNode.setParent(anchorNode)
 
         fishNode.localPosition = Vector3(0f, 0.5f, 0f)
 
         disableViewNodeController(fishNode)
 
-        fishNode.renderable = fishRenderables.get(currentFish.species)
+        fishNode.renderable = fishRenderables.get(currentFish?.species)
         fishNode.select()
 
+        // Show dialog when the player taps on the fish
         fishNode.setOnTapListener { hitTestResult, motionEvent ->
             fishNode.setParent(null)
-            restartBtn.visibility = View.VISIBLE
-            Log.d("CLICK", "Fish clicked")
+            showCaughtDialog()
         }
+    }
+
+    //Inflates the view and populates the data in the fish layout
+    private fun showCaughtDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setCancelable(false)
+        val inflatedFishView = layoutInflater.inflate(R.layout.dialog_caught_fish_info, null)
+        dialogBuilder.setView(inflatedFishView)
+        inflatedFishView.fish_image.setImageDrawable(getDrawable(getFishIcon(currentFish?.species!!)!!))
+        inflatedFishView.fish_species.text = currentFish?.species ?: "Eipä ollu"
+        inflatedFishView.fish_measurements.text = currentFish?.toMeasurementsString() ?: "Eipä ollu"
+
+        if(getFishIcon(currentFish?.species!!) != null) {
+            dialogBuilder.setIcon(getFishIcon(currentFish?.species!!)!!)
+        }
+
+        dialogBuilder.setTitle(R.string.dialog_fish_caught)
+        dialogBuilder.setPositiveButton(R.string.fish_caught_positive) { _, _ ->
+            persistCaughtFish(currentFish!!)
+            startCatching()
+        }
+        dialogBuilder.setNegativeButton(R.string.fish_caught_negative) { _, _ ->
+            currentFish = null
+            startCatching()
+        }
+
+        dialogBuilder.create().show()
+    }
+
+    private fun getFishIcon(species: String): Int? {
+        var resourceId: Int? = null
+        when(species) {
+            "Salmon" -> resourceId = R.drawable.fish_salmon
+            "Pike" -> resourceId = R.drawable.fish_pike
+        }
+        return resourceId
     }
 
     private fun disableViewNodeController(viewNode: TransformableNode) {

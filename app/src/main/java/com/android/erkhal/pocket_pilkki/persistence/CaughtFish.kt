@@ -1,11 +1,8 @@
 package com.android.erkhal.pocket_pilkki.persistence
 
 import android.arch.persistence.room.Entity
-import android.arch.persistence.room.ForeignKey
-import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 import java.sql.Date
-import java.util.*
 
 @Entity
 data class CaughtFish(
@@ -19,7 +16,11 @@ data class CaughtFish(
         var caughtTimestamp: Long?) {
 
     override fun toString(): String {
-        return "Species: $species Length: ${length}cm, Weight: ${weight}g, Caught on: ${getCaughtDate()}"
+        return "Species: $species Length: ${length}cm Weight: ${weight}g Caught on: ${getCaughtDate()}"
+    }
+
+    fun toMeasurementsString(): String {
+        return "Length: ${length}cm \n Weight: ${weight}g"
     }
 
     fun getCaughtDate(): Date {
