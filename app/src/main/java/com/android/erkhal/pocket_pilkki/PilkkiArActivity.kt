@@ -96,7 +96,7 @@ class PilkkiArActivity: AppCompatActivity(),
             }
 
             if (curTime > mShakeTimestamp + PROGRESS_INCREMENT_COOLDOWN) {
-                if (advancement <= 90) {
+                if (advancement <= 99) {
                     mShakeTimestamp = curTime
                     advancement =+ advancement + 35
                     Log.d("ADV", "Progressbar: INCR $advancement")
