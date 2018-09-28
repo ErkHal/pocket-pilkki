@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Pocket-Pilkki</string>
     <string name="progress_bar">Catching progress</string>
+    <string name="progress_bar_finding_spot">Find a fishing spot...</string>
     <string name="resume_fishing">Continue fishing ?</string>
     <string name="fishspecies_salmon">Salmon</string>
     <string name="fishspecies_salmon_description">Salmon are native to tributaries of the North Atlantic and Pacific Ocean.

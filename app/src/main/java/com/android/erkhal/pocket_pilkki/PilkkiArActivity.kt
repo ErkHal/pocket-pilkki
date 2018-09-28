@@ -9,8 +9,7 @@ import android.os.Vibrator
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.widget.Toast
 import com.android.erkhal.pocket_pilkki.global.GlobalFishSpecies
 import com.android.erkhal.pocket_pilkki.persistence.AsyncTasks.AllCaughtFishAsyncTask
 import com.android.erkhal.pocket_pilkki.persistence.AsyncTasks.PersistCaughtFishAsyncTask
@@ -79,6 +78,8 @@ class PilkkiArActivity: AppCompatActivity(),
                     startCatching()
                 }
 
+        tvProgressBar.text = getString(R.string.progress_bar_finding_spot)
+
         // #### DEBUGGING LISTING ALL CAUGHT FISH IN DB ######
         val task = AllCaughtFishAsyncTask(FishDatabase.get(this))
         task.execute()
@@ -98,13 +99,13 @@ class PilkkiArActivity: AppCompatActivity(),
             if (curTime > mShakeTimestamp + PROGRESS_INCREMENT_COOLDOWN) {
                 if (advancement <= 99) {
                     mShakeTimestamp = curTime
-                    advancement =+ advancement + 35
+                    advancement += 35
                     Log.d("ADV", "Progressbar: INCR $advancement")
                 }
             }
 
         } else if ( advancement < 100 && advancement > 0 && curTime > mShakeTimestamp + PROGRESS_DECREMENT_COOLDOWN){
-            advancement =- advancement - 10
+            advancement -= 10
             Log.d("ADV", "Progressbar: DECR $advancement")
         }
         fishingBar.progress = advancement
@@ -130,6 +131,8 @@ class PilkkiArActivity: AppCompatActivity(),
 
     private fun startCatching() {
         fishingModeOn = true
+        tvProgressBar.text = getString(R.string.progress_bar)
+        tvProgressBar.setTextColor(getColor(R.color.material_deep_teal_200))
         resetGnawCounter()
         startFishingThread()
         rodView.setImageResource(R.drawable.fishingrod)
@@ -138,6 +141,7 @@ class PilkkiArActivity: AppCompatActivity(),
 
     private fun fishCaught() {
 
+        Toast.makeText(this, getString(R.string.dialog_fish_caught), Toast.LENGTH_SHORT).show()
         catchingModeOn = false
         fishingRunnable.quit()
         currentFish?.caughtTimestamp = Date().time
@@ -203,7 +207,6 @@ class PilkkiArActivity: AppCompatActivity(),
             dialogBuilder.setIcon(getFishIcon(currentFish?.species!!)!!)
         }
 
-        dialogBuilder.setTitle(R.string.dialog_fish_caught)
         dialogBuilder.setPositiveButton(R.string.fish_caught_positive) { _, _ ->
             persistCaughtFish(currentFish!!)
             startCatching()
