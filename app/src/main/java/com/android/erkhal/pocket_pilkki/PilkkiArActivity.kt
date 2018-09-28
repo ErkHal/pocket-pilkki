@@ -169,6 +169,9 @@ class PilkkiArActivity: AppCompatActivity(),
 
             viewNode.renderable = fishingPondRenderable
             viewNode.select()
+
+            // Disable plane rendering, since that is no longer needed.
+            arFragment.arSceneView.planeRenderer.isEnabled = false
         }
     }
 
