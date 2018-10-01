@@ -68,8 +68,7 @@ class PilkkiArActivity: AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pilkki_ar)
 
-        setupFishingPondRenderable()
-        setupFishRenderables()
+        setupRenderables()
 
         arFragment = ar_fragment as ArFragment
         accelerometerController = AccelerometerController(this)
@@ -206,10 +205,6 @@ class PilkkiArActivity: AppCompatActivity(),
         inflatedFishView.fish_species.text = currentFish?.species ?: "Eipä ollu"
         inflatedFishView.fish_measurements.text = currentFish?.toMeasurementsString() ?: "Eipä ollu"
 
-        if(getFishIcon(currentFish?.species!!) != null) {
-            dialogBuilder.setIcon(getFishIcon(currentFish?.species!!)!!)
-        }
-
         dialogBuilder.setPositiveButton(R.string.fish_caught_positive) { _, _ ->
             persistCaughtFish(currentFish!!)
             startCatching()
@@ -243,18 +238,7 @@ class PilkkiArActivity: AppCompatActivity(),
         fishingThread.start()
     }
 
-    private fun setupFishingPondRenderable() {
-        val modelUri = Uri.parse("pond.sfb")
-
-        val renderableFuture = ModelRenderable.builder()
-                .setSource(this, modelUri)
-                .build()
-        renderableFuture.thenAccept { it ->
-            fishingPondRenderable = it
-        }
-    }
-
-    private fun setupFishRenderables() {
+    private fun setupRenderables() {
 
         fishRenderables = HashMap()
 
@@ -272,6 +256,14 @@ class PilkkiArActivity: AppCompatActivity(),
                 .build()
         renderableSalmon.thenAccept { it ->
             fishRenderables["Salmon"] = it
+        }
+
+        modelUri = Uri.parse("pond.sfb")
+        val renderableFishingPond = ModelRenderable.builder()
+                .setSource(this, modelUri)
+                .build()
+        renderableFishingPond.thenAccept { it ->
+            fishingPondRenderable = it
         }
     }
 }
