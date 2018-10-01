@@ -46,7 +46,7 @@
    },
    samplers: [
       {
-         file: "sampledata/halibut\\Tex_Halibut.png",
+         file: "sampledata/halibut/Tex_Halibut.png",
          name: "Tex_Halibut",
          pipeline_name: "Tex_Halibut.png",
       },

@@ -1,7 +1,8 @@
 package com.android.erkhal.pocket_pilkki.global
 
+import com.android.erkhal.pocket_pilkki.R
 import com.android.erkhal.pocket_pilkki.model.FishSpecies
-import com.android.erkhal.pocket_pilkki.persistence.CaughtFish
+import com.android.erkhal.pocket_pilkki.model.CaughtFish
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -14,8 +15,9 @@ object GlobalFishSpecies {
         // Initialize all species of fish here
 
         species.add(FishSpecies(
-                "Salmon",
-                "This is a description of salmon",
+                R.string.fishspecies_salmon,
+                R.string.fishspecies_salmon_description,
+                R.drawable.trout2,
                 400f,
                 10000f,
                 30f,
@@ -24,8 +26,9 @@ object GlobalFishSpecies {
 
         ))
         species.add(FishSpecies(
-                "Pike",
-                "This is a description of pike",
+                R.string.fishspecies_pike,
+                R.string.fishspecies_pike_description,
+                R.drawable.trout,
                 300f,
                 7000f,
                 30f,
@@ -56,5 +59,16 @@ object GlobalFishSpecies {
         }
 
         return probabilityArray[Random().nextInt(probabilityArray.size - 1)]
+    }
+
+    // Retrieve the image resource number for the chosen species of fish
+    fun getImageResource(fish: CaughtFish): Int {
+        var speciesResourceNumber: Int? = null
+        species.forEach {
+            if(fish.species == it.speciesName) {
+                speciesResourceNumber = it.imageResource
+            }
+        }
+        return speciesResourceNumber ?: R.drawable.fish_pike
     }
 }

@@ -2,6 +2,9 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff4081</color>
     <color name="darkBackground">#90212121</color>
+    <color name="colorFishingBookBg">#00e676</color>
+    <color name="colorFishingBookIcon">#ffffff</color>
+    <color name="colorBackToFishing">#f44336</color>
 </resources>

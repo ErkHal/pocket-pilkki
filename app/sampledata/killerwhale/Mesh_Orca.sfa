@@ -46,7 +46,7 @@
    },
    samplers: [
       {
-         file: "sampledata/killerwhale\\Tex_Orca.png",
+         file: "sampledata/killerwhale/Tex_Orca.png",
          name: "Tex_Orca",
          pipeline_name: "Tex_Orca.png",
       },

@@ -46,10 +46,23 @@
         android:text="@string/progress_bar"
         android:textAllCaps="true"
         android:textColor="@android:color/holo_red_dark"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ar_fragment" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fishingBookButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:tint="@color/colorFishingBookIcon"
+        app:backgroundTint="@color/colorFishingBookBg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fishingBar"
+        app:srcCompat="@drawable/ic_book" />
 
 </android.support.constraint.ConstraintLayout>

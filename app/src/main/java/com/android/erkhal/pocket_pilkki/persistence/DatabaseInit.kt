@@ -4,6 +4,7 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
+import com.android.erkhal.pocket_pilkki.model.CaughtFish
 
 @Database(entities = [(CaughtFish::class)],
         version = 1, exportSchema = false)
@@ -20,6 +21,7 @@ abstract class FishDatabase: RoomDatabase() {
                         context.applicationContext,
                         FishDatabase::class.java,
                         "fish.db")
+                        .allowMainThreadQueries()
                         .build()
             }
             return fishDbInstance!!

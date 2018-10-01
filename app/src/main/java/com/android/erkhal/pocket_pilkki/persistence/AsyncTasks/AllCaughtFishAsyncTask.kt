@@ -2,7 +2,7 @@ package com.android.erkhal.pocket_pilkki.persistence.AsyncTasks
 
 import android.os.AsyncTask
 import android.util.Log
-import com.android.erkhal.pocket_pilkki.persistence.CaughtFish
+import com.android.erkhal.pocket_pilkki.model.CaughtFish
 import com.android.erkhal.pocket_pilkki.persistence.FishDatabase
 
 class AllCaughtFishAsyncTask(private val db: FishDatabase)

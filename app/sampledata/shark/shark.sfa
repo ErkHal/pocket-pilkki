@@ -124,7 +124,7 @@
    },
    samplers: [
       {
-         file: "sampledata/shark\\sharkTxt.png",
+         file: "sampledata/shark/sharkTxt.png",
          name: "sharkTxt",
          pipeline_name: "sharkTxt.png",
       },

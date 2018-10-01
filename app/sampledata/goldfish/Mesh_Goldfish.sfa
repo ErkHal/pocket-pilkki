@@ -46,7 +46,7 @@
    },
    samplers: [
       {
-         file: "sampledata/goldfish\\Tex_Goldfish.png",
+         file: "sampledata/goldfish/Tex_Goldfish.png",
          name: "Tex_Goldfish",
          pipeline_name: "Tex_Goldfish.png",
       },

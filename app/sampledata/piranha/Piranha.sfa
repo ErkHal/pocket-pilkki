@@ -46,7 +46,7 @@
    },
    samplers: [
       {
-         file: "sampledata/piranha\\Piranha_BaseColor.png",
+         file: "sampledata/piranha/Piranha_BaseColor.png",
          name: "Piranha_BaseColor",
          pipeline_name: "Piranha_BaseColor.png",
       },

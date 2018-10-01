@@ -46,7 +46,7 @@
    },
    samplers: [
       {
-         file: "sampledata/kingfish\\Tex_Kingfish.png",
+         file: "sampledata/kingfish/Tex_Kingfish.png",
          name: "Tex_Kingfish",
          pipeline_name: "Tex_Kingfish.png",
       },
