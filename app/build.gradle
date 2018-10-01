@@ -56,3 +56,48 @@ sceneform.asset('sampledata/Mesh_Trout.obj',
         'default',
         'sampledata/Mesh_Trout.sfa',
         'src/main/assets/Mesh_Trout')
+
+sceneform.asset('sampledata/pufferfish/NOVELO_PUFFERFISH.obj',
+        'default',
+        'sampledata/pufferfish/NOVELO_PUFFERFISH.sfa',
+        'src/main/assets/NOVELO_PUFFERFISH')
+
+sceneform.asset('sampledata/shark/shark.obj',
+        'default',
+        'sampledata/shark/shark.sfa',
+        'src/main/assets/shark')
+
+sceneform.asset('sampledata/kingfish/Mesh_Kingfish.obj',
+        'default',
+        'sampledata/kingfish/Mesh_Kingfish.sfa',
+        'src/main/assets/Mesh_Kingfish')
+
+sceneform.asset('sampledata/goldfish/Mesh_Goldfish.obj',
+        'default',
+        'sampledata/goldfish/Mesh_Goldfish.sfa',
+        'src/main/assets/Mesh_Goldfish')
+
+sceneform.asset('sampledata/crayfish/NOVELO_CRAYFISH.obj',
+        'default',
+        'sampledata/crayfish/NOVELO_CRAYFISH.sfa',
+        'src/main/assets/NOVELO_CRAYFISH')
+
+sceneform.asset('sampledata/piranha/Piranha.obj',
+        'default',
+        'sampledata/piranha/Piranha.sfa',
+        'src/main/assets/Piranha')
+
+sceneform.asset('sampledata/halibut/Mesh_Halibut.obj',
+        'default',
+        'sampledata/halibut/Mesh_Halibut.sfa',
+        'src/main/assets/Mesh_Halibut')
+
+sceneform.asset('sampledata/killerwhale/Mesh_Orca.obj',
+        'default',
+        'sampledata/killerwhale/Mesh_Orca.sfa',
+        'src/main/assets/Mesh_Orca')
+
+sceneform.asset('sampledata/trout/NOVELO_TROUT.obj',
+        'default',
+        'sampledata/trout/NOVELO_TROUT.sfa',
+        'src/main/assets/NOVELO_TROUT')
