@@ -108,6 +108,7 @@ class PilkkiArActivity : AppCompatActivity(),
 
         btnMenu.setOnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
+            quitFishing()
             startActivity(intent)
         }
 
@@ -308,6 +309,78 @@ class PilkkiArActivity : AppCompatActivity(),
                 .build()
         renderableSalmon.thenAccept { it ->
             fishRenderables[R.string.fishspecies_salmon] = it
+        }
+
+        modelUri = Uri.parse("Mesh_Goldfish.sfb")
+        val renderableGoldfish = ModelRenderable.builder()
+                .setSource(this, modelUri)
+                .build()
+        renderableGoldfish.thenAccept { it ->
+            fishRenderables[R.string.fishspecies_goldfish] = it
+        }
+
+        modelUri = Uri.parse("Mesh_Halibut.sfb")
+        val renderableHalibut = ModelRenderable.builder()
+                .setSource(this, modelUri)
+                .build()
+        renderableHalibut.thenAccept { it ->
+            fishRenderables[R.string.fishspecies_halibut] = it
+        }
+
+        modelUri = Uri.parse("Mesh_Kingfish.sfb")
+        val renderableKingfish = ModelRenderable.builder()
+                .setSource(this, modelUri)
+                .build()
+        renderableSalmon.thenAccept { it ->
+            fishRenderables[R.string.fishspecies_kingfish] = it
+        }
+
+        modelUri = Uri.parse("Mesh_Orca.sfb")
+        val renderableOrca = ModelRenderable.builder()
+                .setSource(this, modelUri)
+                .build()
+        renderableOrca.thenAccept { it ->
+            fishRenderables[R.string.fishspecies_killerwhale] = it
+        }
+
+        modelUri = Uri.parse("NOVELO_CRAYFISH.sfb")
+        val renderableCrayfish = ModelRenderable.builder()
+                .setSource(this, modelUri)
+                .build()
+        renderableCrayfish.thenAccept { it ->
+            fishRenderables[R.string.fishspecies_crawfish] = it
+        }
+
+        modelUri = Uri.parse("NOVELO_PUFFERFISH.sfb")
+        val renderablePufferfish = ModelRenderable.builder()
+                .setSource(this, modelUri)
+                .build()
+        renderablePufferfish.thenAccept { it ->
+            fishRenderables[R.string.fishspecies_pufferfish] = it
+        }
+
+        modelUri = Uri.parse("NOVELO_TROUT.sfb")
+        val renderableYeltrout = ModelRenderable.builder()
+                .setSource(this, modelUri)
+                .build()
+        renderableYeltrout.thenAccept { it ->
+            fishRenderables[R.string.fishspecies_yeltrout] = it
+        }
+
+        modelUri = Uri.parse("Piranha.sfb")
+        val renderablePiranha = ModelRenderable.builder()
+                .setSource(this, modelUri)
+                .build()
+        renderablePiranha.thenAccept { it ->
+            fishRenderables[R.string.fishspecies_piranha] = it
+        }
+
+        modelUri = Uri.parse("shark.sfb")
+        val renderableShark = ModelRenderable.builder()
+                .setSource(this, modelUri)
+                .build()
+        renderableShark.thenAccept { it ->
+            fishRenderables[R.string.fishspecies_shark] = it
         }
 
         modelUri = Uri.parse("pond.sfb")

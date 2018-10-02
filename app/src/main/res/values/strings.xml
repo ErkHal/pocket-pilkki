@@ -3,13 +3,49 @@
     <string name="progress_bar">Catching progress</string>
     <string name="progress_bar_finding_spot">Find a fishing spot...</string>
     <string name="resume_fishing">Continue fishing ?</string>
+
+
     <string name="fishspecies_salmon">Salmon</string>
     <string name="fishspecies_salmon_description">Salmon are native to tributaries of the North Atlantic and Pacific Ocean.
         Many species of salmon have been introduced into non-native environments such as the Great Lakes of North America and Patagonia in South America.
         Salmon are intensively farmed in many parts of the world. </string>
+
     <string name="fishspecies_pike">Northern Pike</string>
     <string name="fishspecies_pike_description">Known simply as a pike in Britain, Ireland, most of Canada, and most parts of the United States (once called luce when fully grown; also called jackfish or simply "northern" in the U.S. Upper Midwest and in Manitoba),is a species of carnivorous fish of the genus Esox (the pikes).
         They are typical of brackish and fresh waters of the Northern Hemisphere (i.e. holarctic in distribution). </string>
+
+    <string name="fishspecies_crawfish">Crayfish</string>
+    <string name="fishspecies_crawfish_description">Crayfish are freshwater crustaceans resembling small lobsters. They breathe through feather-like gills. Some species are found in brooks and streams where there is running fresh water, while others thrive in swamps, ditches, and paddy fields.
+        Crayfish feed on animals and plants, either living or decomposing, and detritus.</string>
+
+    <string name="fishspecies_goldfish">Goldfish</string>
+    <string name="fishspecies_goldfish_description">The goldfish is a freshwater fish. It is one of the most commonly kept aquarium fish. It is a member of the carp family and is native to East Asia. It was first selectively bred in Ancient China more than a thousand years ago.</string>
+
+    <string name="fishspecies_halibut">Pacific Halibut</string>
+    <string name="fishspecies_halibut_description">The Pacific halibut, is a species of righteye flounder. This very large species of flatfish is native to the North Pacific and is fished by commercial fisheries, sport fishers, and subsistence fishers.</string>
+
+    <string name="fishspecies_killerwhale">Orca</string>
+    <string name="fishspecies_killerwhale_description">The killer whale or orca (Orcinus orca) is a toothed whale belonging to the oceanic dolphin family, of which it is the largest member. Killer whales have a diverse diet, although individual populations often specialize in particular types of prey.
+        Some feed exclusively on fish, while others hunt marine mammals such as seals and dolphins. Killer whales are apex predators, as no animal preys on them.</string>
+
+    <string name="fishspecies_kingfish">Kingfish</string>
+    <string name="fishspecies_kingfish_description">The king mackerel or kingfish is a migratory species of mackerel of the western Atlantic Ocean and Gulf of Mexico. It is an important species to both the commercial and recreational fishing industries.</string>
+
+    <string name="fishspecies_piranha">Piranha</string>
+    <string name="fishspecies_piranha_description">The piranha is a freshwater fish that inhabits South American rivers, floodplains, lakes and reservoirs. Although often described as extremely predatory and mainly feeding on fish, their dietary habits vary extensively and they will also take plant material, leading to their classification as omnivorous.
+        They are known for their sharp teeth and powerful jaws.</string>
+
+    <string name="fishspecies_pufferfish">Pufferfish</string>
+    <string name="fishspecies_pufferfish_description">Pufferfish have the ability to inflate their bodies by swallowing water or air, thereby becoming rounder. This increase in size (almost double vertically) reduces the range of potential predators to those with much bigger mouths.
+        A second defense mechanism is provided by the sharp spikes, which radiate outwards when the fish is inflated.</string>
+
+    <string name="fishspecies_shark">Great White</string>
+    <string name="fishspecies_shark_description">The great white shark has no known natural predators other than, on very rare occasions, the killer whale. The great white shark is arguably the world\'s largest known extant macropredatory fish, and is one of the primary predators of marine mammals.
+        It is the only known surviving species of its genus Carcharodon, and is responsible for more recorded human bite incidents than any other shark.</string>
+
+    <string name="fishspecies_yeltrout">Trout</string>
+    <string name="fishspecies_yeltrout_description">The brown trout is a European species of salmonid fish that has been widely introduced into suitable environments globally. It migrates to the oceans for much of its life and returns to fresh water only to spawn.</string>
+
     <string name="dialog_fish_caught">Fish caught !</string>
     <string name="fish_caught_positive">Save to my fish</string>
     <string name="fish_caught_negative">Release</string>

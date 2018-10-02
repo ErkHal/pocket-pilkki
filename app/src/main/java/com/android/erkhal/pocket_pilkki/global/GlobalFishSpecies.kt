@@ -18,24 +18,113 @@ object GlobalFishSpecies {
                 R.string.fishspecies_salmon,
                 R.string.fishspecies_salmon_description,
                 R.drawable.trout2,
-                400f,
+                600f,
                 10000f,
                 30f,
                 140f,
-                2
+                15
 
         ))
         species.add(FishSpecies(
                 R.string.fishspecies_pike,
                 R.string.fishspecies_pike_description,
                 R.drawable.trout,
-                300f,
+                500f,
                 7000f,
                 30f,
                 120f,
-                4
+                20
         ))
-
+        species.add(FishSpecies(
+                R.string.fishspecies_crawfish,
+                R.string.fishspecies_crawfish_description,
+                R.drawable.crawfish,
+                300f,
+                3500f,
+                15f,
+                75f,
+                15
+        ))
+        species.add(FishSpecies(
+                R.string.fishspecies_goldfish,
+                R.string.fishspecies_goldfish_description,
+                R.drawable.goldfish,
+                800f,
+                15000f,
+                30f,
+                135f,
+                10
+        ))
+        species.add(FishSpecies(
+                R.string.fishspecies_halibut,
+                R.string.fishspecies_halibut_description,
+                R.drawable.halibut,
+                10000f,
+                200000f,
+                30f,
+                300f,
+                13
+        ))
+        species.add(FishSpecies(
+                R.string.fishspecies_killerwhale,
+                R.string.fishspecies_killerwhale_description,
+                R.drawable.killerwhale,
+                1400000f,
+                2800000f,
+                500f,
+                850f,
+                3
+        ))
+        species.add(FishSpecies(
+                R.string.fishspecies_kingfish,
+                R.string.fishspecies_kingfish_description,
+                R.drawable.kingfish,
+                2000f,
+                75000f,
+                20f,
+                260f,
+                10
+        ))
+        species.add(FishSpecies(
+                R.string.fishspecies_piranha,
+                R.string.fishspecies_piranha_description,
+                R.drawable.piranha,
+                500f,
+                4000f,
+                10f,
+                70f,
+                10
+        ))
+        species.add(FishSpecies(
+                R.string.fishspecies_pufferfish,
+                R.string.fishspecies_pufferfish_description,
+                R.drawable.pufferfish,
+                500f,
+                15000f,
+                10f,
+                75f,
+                10
+        ))
+        species.add(FishSpecies(
+                R.string.fishspecies_yeltrout,
+                R.string.fishspecies_yeltrout_description,
+                R.drawable.yeltrout,
+                1000f,
+                30000f,
+                30f,
+                140f,
+                15
+        ))
+        species.add(FishSpecies(
+                R.string.fishspecies_shark,
+                R.string.fishspecies_shark_description,
+                R.drawable.shark,
+                600000f,
+                2200000f,
+                200f,
+                700f,
+                6
+        ))
     }
 
     fun getRandomizedFish(): CaughtFish {

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
+import com.android.erkhal.pocket_pilkki.fishingBook.FishingBookActivity
 import kotlinx.android.synthetic.main.activity_menu.*
 
 class MenuActivity : AppCompatActivity() {
@@ -27,10 +28,20 @@ class MenuActivity : AppCompatActivity() {
         btnStart.setOnClickListener {
             openPilkkiArActivity()
         }
+
+        btnBook.setOnClickListener {
+            openFishingBook()
+        }
     }
 
-    fun openPilkkiArActivity () {
+    private fun openPilkkiArActivity () {
         val intent = Intent(this, PilkkiArActivity::class.java)
         startActivity(intent)
+    }
+
+
+    private fun openFishingBook() {
+        val openFishingBookIntent = Intent(this, FishingBookActivity::class.java)
+        startActivity(openFishingBookIntent)
     }
 }
