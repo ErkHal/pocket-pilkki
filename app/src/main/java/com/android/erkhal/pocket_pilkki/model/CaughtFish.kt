@@ -2,7 +2,6 @@ package com.android.erkhal.pocket_pilkki.model
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
-import com.android.erkhal.pocket_pilkki.R
 import java.sql.Date
 
 @Entity

@@ -2,8 +2,8 @@ package com.android.erkhal.pocket_pilkki
 
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import android.view.WindowManager
 import com.android.erkhal.pocket_pilkki.fishingBook.FishingBookActivity
@@ -15,10 +15,10 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         //Remove title bar
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE)
 
         //Remove notification bar
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         //Set layout after hiding stuff
         setContentView(R.layout.activity_menu)

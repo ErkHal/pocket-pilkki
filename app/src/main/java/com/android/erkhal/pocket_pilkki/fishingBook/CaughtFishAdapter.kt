@@ -14,7 +14,7 @@ class CaughtFishAdapter(private val context: Context, private var fishArray: Arr
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FishingBookEntryViewHolder {
         val bookEntryView = LayoutInflater.from(parent.context).inflate(R.layout.fishing_book_entry, parent, false)
-        return FishingBookEntryViewHolder(bookEntryView)
+        return FishingBookEntryViewHolder(bookEntryView, context)
     }
 
     override fun onBindViewHolder(holder: FishingBookEntryViewHolder, position: Int) {

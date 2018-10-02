@@ -2,8 +2,8 @@ package com.android.erkhal.pocket_pilkki.global
 
 import android.net.Uri
 import com.android.erkhal.pocket_pilkki.R
-import com.android.erkhal.pocket_pilkki.model.FishSpecies
 import com.android.erkhal.pocket_pilkki.model.CaughtFish
+import com.android.erkhal.pocket_pilkki.model.FishSpecies
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashSet

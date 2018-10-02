@@ -14,9 +14,9 @@ import android.util.Log
 import android.widget.Toast
 import com.android.erkhal.pocket_pilkki.fishingBook.FishingBookActivity
 import com.android.erkhal.pocket_pilkki.global.GlobalFishSpecies
+import com.android.erkhal.pocket_pilkki.model.CaughtFish
 import com.android.erkhal.pocket_pilkki.persistence.AsyncTasks.AllCaughtFishAsyncTask
 import com.android.erkhal.pocket_pilkki.persistence.AsyncTasks.PersistCaughtFishAsyncTask
-import com.android.erkhal.pocket_pilkki.model.CaughtFish
 import com.android.erkhal.pocket_pilkki.persistence.FishDatabase
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
