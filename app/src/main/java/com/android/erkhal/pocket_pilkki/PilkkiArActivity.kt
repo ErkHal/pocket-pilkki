@@ -2,6 +2,7 @@ package com.android.erkhal.pocket_pilkki
 
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -67,6 +68,16 @@ class PilkkiArActivity : AppCompatActivity(),
     // The current fish to be caught is stored in this variable
     private var currentFish: CaughtFish? = null
 
+    // ze sounds
+    private lateinit var reel_sound: MediaPlayer
+    private lateinit var smallSplash_sound: MediaPlayer
+    private lateinit var bigSplash_sound: MediaPlayer
+    private lateinit var fail_sound: MediaPlayer
+    private lateinit var collect_sound: MediaPlayer
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pilkki_ar)
@@ -75,13 +86,30 @@ class PilkkiArActivity : AppCompatActivity(),
 
         arFragment = ar_fragment as ArFragment
         accelerometerController = AccelerometerController(this)
+        arFragment.setOnTapArPlaneListener { hitResult, _, _ ->
+                    spawnFishingPond(hitResult)
+                    startCatching()
+                }
 
         tvProgressBar.text = getString(R.string.progress_bar_finding_spot)
+
+        // Mediaplayers for sound FX
+        reel_sound = MediaPlayer.create(this, R.raw.reeling)
+        smallSplash_sound = MediaPlayer.create(this, R.raw.small_splash)
+        bigSplash_sound = MediaPlayer.create(this, R.raw.big_splash)
+        fail_sound = MediaPlayer.create(this, R.raw.fail)
+        collect_sound = MediaPlayer.create(this, R.raw.collect)
 
         // #### DEBUGGING LISTING ALL CAUGHT FISH IN DB ######
         val task = AllCaughtFishAsyncTask(FishDatabase.get(this))
         task.execute()
         // #####################
+
+
+        btnMenu.setOnClickListener {
+            val intent = Intent(this, MenuActivity::class.java)
+            startActivity(intent)
+        }
 
         arFragment.setOnTapArPlaneListener { hitResult, _, _ ->
             spawnFishingPond(hitResult)
@@ -130,6 +158,7 @@ class PilkkiArActivity : AppCompatActivity(),
 
         } else if (advancement < 100 && advancement > 0 && curTime > mShakeTimestamp + PROGRESS_DECREMENT_COOLDOWN) {
             advancement -= 10
+            fail_sound.start()
             Log.d("ADV", "Progressbar: DECR $advancement")
         }
         fishingBar.progress = advancement
@@ -145,6 +174,7 @@ class PilkkiArActivity : AppCompatActivity(),
 
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         catchingModeOn = true
+        reel_sound.start()
         vibrator.vibrate(VibrationEffect.createOneShot(CATCHING_MODE_DURATION_MILLIS, VibrationEffect.DEFAULT_AMPLITUDE))
         this.runOnUiThread {
             run {
@@ -169,6 +199,8 @@ class PilkkiArActivity : AppCompatActivity(),
         catchingModeOn = false
         fishingRunnable?.quit()
         currentFish?.caughtTimestamp = Date().time
+
+        smallSplash_sound.start()
 
         // Take net into hand
         rodView.setImageResource(R.drawable.net)
@@ -217,6 +249,7 @@ class PilkkiArActivity : AppCompatActivity(),
         fishNode.setOnTapListener { hitTestResult, motionEvent ->
             fishNode.setParent(null)
             showCaughtDialog()
+            collect_sound.start()
         }
     }
 
