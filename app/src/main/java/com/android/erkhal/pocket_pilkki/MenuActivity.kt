@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import android.view.WindowManager
+import com.android.erkhal.pocket_pilkki.fishCodex.FishCodexActivity
 import com.android.erkhal.pocket_pilkki.fishingBook.FishingBookActivity
 import kotlinx.android.synthetic.main.activity_menu.*
 
@@ -37,6 +38,15 @@ class MenuActivity : AppCompatActivity() {
         btnBook.setOnClickListener {
             openFishingBook()
         }
+
+        btnCodex.setOnClickListener {
+            openFishCodex()
+        }
+    }
+
+    private fun openFishCodex() {
+        val intent = Intent(this, FishCodexActivity::class.java)
+        startActivity(intent)
     }
 
     private fun openPilkkiArActivity () {

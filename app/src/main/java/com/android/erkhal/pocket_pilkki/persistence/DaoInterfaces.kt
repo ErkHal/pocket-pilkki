@@ -13,8 +13,8 @@ interface CaughtFishDao {
     fun insert(fish: CaughtFish)
 
     @Query("SELECT * FROM caughtfish as fish WHERE fish.species = :species")
-    fun getAllOfSpecies(species: Int): Array<CaughtFish>
+    fun getAllOfSpecies(species: Int): List<CaughtFish>
 
     @Query("SELECT * FROM caughtfish")
-    fun getAll(): Array<CaughtFish>
+    fun getAll(): List<CaughtFish>
 }

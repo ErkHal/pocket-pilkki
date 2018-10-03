@@ -9,8 +9,8 @@ import android.os.Environment
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
+import com.android.erkhal.pocket_pilkki.DatabaseUtils.Utils
 import com.android.erkhal.pocket_pilkki.R
-import com.android.erkhal.pocket_pilkki.global.GlobalFishSpecies
 import com.android.erkhal.pocket_pilkki.model.CaughtFish
 import kotlinx.android.synthetic.main.fishing_book_entry.view.*
 import java.io.File
@@ -18,7 +18,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
 
-class FishingBookEntryViewHolder(val view: View, val context: Context) : RecyclerView.ViewHolder(view) {
+class FishingBookEntryViewHolder(private val view: View, val context: Context) : RecyclerView.ViewHolder(view) {
 
     init {
         view.share_button.setOnClickListener {
@@ -68,6 +68,6 @@ class FishingBookEntryViewHolder(val view: View, val context: Context) : Recycle
         view.fish_measurements.text = context.getString(
                 R.string.fish_measurements, fish.getFishLength(), fish.getFishWeight())
         view.fish_caught_date.text = context.getString(R.string.fish_caught_on, fish.getFishCaughtDate().toString())
-        view.fish_image.setImageDrawable(context.getDrawable(GlobalFishSpecies.getImageResource(fish)))
+        view.fish_image.setImageDrawable(context.getDrawable(Utils.getImageResource(fish)))
     }
 }

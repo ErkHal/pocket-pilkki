@@ -12,11 +12,11 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
+import com.android.erkhal.pocket_pilkki.DatabaseUtils.PersistCaughtFishAsyncTask
+import com.android.erkhal.pocket_pilkki.DatabaseUtils.Utils
 import com.android.erkhal.pocket_pilkki.fishingBook.FishingBookActivity
 import com.android.erkhal.pocket_pilkki.global.GlobalFishSpecies
 import com.android.erkhal.pocket_pilkki.model.CaughtFish
-import com.android.erkhal.pocket_pilkki.persistence.AsyncTasks.AllCaughtFishAsyncTask
-import com.android.erkhal.pocket_pilkki.persistence.AsyncTasks.PersistCaughtFishAsyncTask
 import com.android.erkhal.pocket_pilkki.persistence.FishDatabase
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
@@ -99,12 +99,6 @@ class PilkkiArActivity : AppCompatActivity(),
         bigSplash_sound = MediaPlayer.create(this, R.raw.big_splash)
         fail_sound = MediaPlayer.create(this, R.raw.fail)
         collect_sound = MediaPlayer.create(this, R.raw.collect)
-
-        // #### DEBUGGING LISTING ALL CAUGHT FISH IN DB ######
-        val task = AllCaughtFishAsyncTask(FishDatabase.get(this))
-        task.execute()
-        // #####################
-
 
         btnMenu.setOnClickListener {
             val intent = Intent(this, MenuActivity::class.java)
@@ -191,7 +185,7 @@ class PilkkiArActivity : AppCompatActivity(),
         resetGnawCounter()
         startFishingThread()
         rodView.setImageResource(R.drawable.fishingrod)
-        currentFish = GlobalFishSpecies.getRandomizedFish()
+        currentFish = Utils.getRandomizedFish()
     }
 
     private fun fishCaught() {
@@ -260,7 +254,7 @@ class PilkkiArActivity : AppCompatActivity(),
         dialogBuilder.setCancelable(false)
         val inflatedFishView = layoutInflater.inflate(R.layout.dialog_caught_fish_info, null)
         dialogBuilder.setView(inflatedFishView)
-        inflatedFishView.fish_image.setImageDrawable(getDrawable(GlobalFishSpecies.getImageResource(currentFish!!)))
+        inflatedFishView.fish_image.setImageDrawable(getDrawable(Utils.getImageResource(currentFish!!)))
         inflatedFishView.fish_species.text = getString(currentFish?.species ?: R.string.fishspecies_pike)
         inflatedFishView.fish_measurements.text =
                 getString(R.string.fish_measurements,

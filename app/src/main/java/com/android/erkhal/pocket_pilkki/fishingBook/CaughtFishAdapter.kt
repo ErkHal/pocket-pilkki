@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.android.erkhal.pocket_pilkki.R
 import com.android.erkhal.pocket_pilkki.model.CaughtFish
 
-class CaughtFishAdapter(private val context: Context, private var fishArray: Array<CaughtFish>):
+class CaughtFishAdapter(private val context: Context, private var fishArray: List<CaughtFish>):
         RecyclerView.Adapter<FishingBookEntryViewHolder>() {
 
     override fun getItemCount() = fishArray.size

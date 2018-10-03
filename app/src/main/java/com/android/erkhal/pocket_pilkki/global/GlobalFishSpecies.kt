@@ -2,11 +2,7 @@ package com.android.erkhal.pocket_pilkki.global
 
 import android.net.Uri
 import com.android.erkhal.pocket_pilkki.R
-import com.android.erkhal.pocket_pilkki.model.CaughtFish
 import com.android.erkhal.pocket_pilkki.model.FishSpecies
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashSet
 
 object GlobalFishSpecies {
 
@@ -138,33 +134,5 @@ object GlobalFishSpecies {
                 700f,
                 6
         ))
-    }
-
-    fun getRandomizedFish(): CaughtFish {
-        val randomFishSpecies = getRandomFishSpecies()
-        val fishWeight = randomFishSpecies.minWeight + (Random().nextInt(randomFishSpecies.maxWeight.toInt()))
-        val fishLength = randomFishSpecies.minLength + (Random().nextInt(randomFishSpecies.maxLength.toInt()))
-
-        return CaughtFish(0, randomFishSpecies.speciesName, fishLength, fishWeight, null)
-    }
-
-    // Randomization function utilizing probabilities
-    private fun getRandomFishSpecies(): FishSpecies {
-
-        val probabilityArray = ArrayList<FishSpecies>()
-
-        species.forEach {
-            val amount = it.probability
-            for(i in 1..amount) {
-                probabilityArray.add(it)
-            }
-        }
-
-        return probabilityArray[Random().nextInt(probabilityArray.size - 1)]
-    }
-
-    // Retrieve the image resource number for the chosen species of fish
-    fun getImageResource(fish: CaughtFish): Int {
-        return species.find { it.speciesName == fish.species }?.imageResource ?: R.drawable.fish_pike
     }
 }

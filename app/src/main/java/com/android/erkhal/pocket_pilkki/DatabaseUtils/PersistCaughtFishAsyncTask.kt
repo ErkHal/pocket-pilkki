@@ -1,13 +1,12 @@
-package com.android.erkhal.pocket_pilkki.persistence.AsyncTasks
+package com.android.erkhal.pocket_pilkki.DatabaseUtils
 
 import android.os.AsyncTask
 import android.util.Log
 import com.android.erkhal.pocket_pilkki.model.CaughtFish
 import com.android.erkhal.pocket_pilkki.persistence.FishDatabase
 
-/*
-    Executes the persisting of the caught fish into the CaughtFish table in a worker thread
- */
+// Async task for persisting the caught fish into the local SQLite database
+// This is executed in the background, in a worker thread
 class PersistCaughtFishAsyncTask(private val db: FishDatabase)
     : AsyncTask<CaughtFish, Unit, Unit>() {
 

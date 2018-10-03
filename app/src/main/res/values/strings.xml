@@ -53,4 +53,6 @@
     <string name="fish_caught_view_measurements">Measurements:</string>
     <string name="fish_measurements">Length: %1$s \nWeight: %2$s</string>
     <string name="fish_caught_on">Caught: %1$s</string>
+    <string name="fishspecies_not_yet_caught">Not yet caught !</string>
+    <string name="fishspecies_caught">Caught this one !</string>
 </resources>
