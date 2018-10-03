@@ -68,8 +68,8 @@
         android:layout_marginEnd="32dp"
         android:layout_marginTop="16dp"
         android:clickable="true"
-        android:tint="@color/colorFishingBookIcon"
-        app:backgroundTint="@color/colorFishingBookBg"
+        android:tint="@color/fishingBookIcon"
+        app:backgroundTint="@color/fishingBookBg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fishingBar"
         app:srcCompat="@drawable/ic_book" />

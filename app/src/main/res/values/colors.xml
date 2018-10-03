@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff4081</color>
     <color name="darkBackground">#90212121</color>
-    <color name="colorFishingBookBg">#00e676</color>
-    <color name="colorFishingBookIcon">#ffffff</color>
-    <color name="colorBackToFishing">#f44336</color>
+    <color name="fishingBookBg">#00e676</color>
+    <color name="fishingBookIcon">#ffffff</color>
+    <color name="backToFishing">#f44336</color>
+    <color name="fishingBookEntryBG">#ffcc80</color>
 </resources>

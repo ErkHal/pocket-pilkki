@@ -18,7 +18,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.util.*
 
-class FishingBookEntryViewHolder(val view: View, val context: Context): RecyclerView.ViewHolder(view) {
+class FishingBookEntryViewHolder(val view: View, val context: Context) : RecyclerView.ViewHolder(view) {
 
     init {
         view.share_button.setOnClickListener {
@@ -34,7 +34,7 @@ class FishingBookEntryViewHolder(val view: View, val context: Context): Recycler
         val bitmap =
                 Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
-        view.layout(0,0, view.width, view.height)
+        view.layout(0, 0, view.width, view.height)
         view.draw(canvas)
         // Show the share button again
         (view.share_button as View).visibility = View.VISIBLE
@@ -44,7 +44,6 @@ class FishingBookEntryViewHolder(val view: View, val context: Context): Recycler
     private fun saveShareableImage(shareableFishBitmap: Bitmap?): String {
         val rootPath = Environment.getExternalStorageDirectory()
         val imgFile = File(rootPath, "${UUID.randomUUID()}.png")
-
         try {
             val outputStream = FileOutputStream(imgFile)
             shareableFishBitmap?.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
@@ -63,7 +62,6 @@ class FishingBookEntryViewHolder(val view: View, val context: Context): Recycler
         shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(filepath))
         context.startActivity(shareIntent)
     }
-
 
     fun assignValues(fish: CaughtFish, context: Context) {
         view.fish_entry_species.text = context.getString(fish.species)

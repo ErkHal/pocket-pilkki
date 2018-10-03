@@ -2,7 +2,11 @@ package com.android.erkhal.pocket_pilkki
 
 
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import android.view.WindowManager
@@ -23,6 +27,7 @@ class MenuActivity : AppCompatActivity() {
         //Set layout after hiding stuff
         setContentView(R.layout.activity_menu)
 
+        checkPermissions()
 
         // Button listeners
         btnStart.setOnClickListener {
@@ -43,5 +48,12 @@ class MenuActivity : AppCompatActivity() {
     private fun openFishingBook() {
         val openFishingBookIntent = Intent(this, FishingBookActivity::class.java)
         startActivity(openFishingBookIntent)
+    }
+
+    private fun checkPermissions() {
+        if ((Build.VERSION.SDK_INT >= 23 &&
+                        ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
+        }
     }
 }

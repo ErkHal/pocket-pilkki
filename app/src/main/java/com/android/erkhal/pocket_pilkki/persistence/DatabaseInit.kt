@@ -21,7 +21,6 @@ abstract class FishDatabase: RoomDatabase() {
                         context.applicationContext,
                         FishDatabase::class.java,
                         "fish.db")
-                        .allowMainThreadQueries()
                         .build()
             }
             return fishDbInstance!!
