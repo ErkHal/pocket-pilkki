@@ -21,6 +21,7 @@ import com.android.erkhal.pocket_pilkki.persistence.FishDatabase
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
 import com.google.ar.sceneform.AnchorNode
+import com.google.ar.sceneform.math.Quaternion
 import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
@@ -234,6 +235,7 @@ class PilkkiArActivity : AppCompatActivity(),
         fishNode.setParent(anchorNode)
 
         fishNode.localPosition = Vector3(0f, 0.5f, 0f)
+        fishNode.localRotation = Quaternion.axisAngle(Vector3(0f, 1.0f, 0f), 45f)
 
         disableViewNodeController(fishNode)
 
