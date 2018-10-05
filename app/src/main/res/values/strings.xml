@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pocket-Pilkki</string>
+    <string name="app_name">Pocket Fishing</string>
     <string name="progress_bar">Catching progress</string>
     <string name="progress_bar_finding_spot">Find a fishing spot...</string>
     <string name="resume_fishing">Continue fishing ?</string>
