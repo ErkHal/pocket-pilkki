@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accessibility_start_fishing">Start Fishing</string>
+    <string name="accessibility_fishing_book">Fishing Book</string>
+    <string name="accessibility_fish_codex">Fish Codex</string>
+    <string name="accessibility_credits">Credits</string>
+</resources>

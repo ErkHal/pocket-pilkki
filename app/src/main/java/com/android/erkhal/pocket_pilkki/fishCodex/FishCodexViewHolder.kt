@@ -22,9 +22,14 @@ class FishCodexViewHolder(private val codexEntryView: View): RecyclerView.ViewHo
         codexEntryView.apply {
             share_button.hide()
             fish_image.setImageDrawable(context.getDrawable(getImageResource()))
+            //Regular strings
             fish_entry_species.text = context.getString(speciesInformation.speciesName)
             fish_measurements.text = context.getString(speciesInformation.description)
             fish_caught_date.text = context.getString(getCaughtStatusText())
+            //Accessibility strings
+            fish_entry_species.contentDescription = context.getString(speciesInformation.speciesName)
+            fish_measurements.contentDescription = context.getString(speciesInformation.description)
+            fish_caught_date.contentDescription = context.getString(getCaughtStatusText())
         }
     }
 

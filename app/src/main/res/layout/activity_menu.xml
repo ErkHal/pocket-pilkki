@@ -34,6 +34,7 @@
 
     <Button
         android:id="@+id/btnStart"
+        android:contentDescription="@string/accessibility_start_fishing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -47,6 +48,7 @@
 
     <Button
         android:id="@+id/btnBook"
+        android:contentDescription="@string/accessibility_fishing_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -60,6 +62,7 @@
 
     <Button
         android:id="@+id/btnCodex"
+        android:contentDescription="@string/accessibility_fish_codex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -73,6 +76,7 @@
 
     <Button
         android:id="@+id/btnSettings"
+        android:contentDescription="@string/accessibility_credits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

@@ -62,15 +62,16 @@ class Utils {
        from another coroutine.
         */
         private fun asyncGetAllCaughtFish(context: Context): List<CaughtFish> {
+
+            fun executeGetAllQuery(context: Context): Deferred<List<CaughtFish>> {
+                return async(CommonPool) {
+                    val db = FishDatabase.get(context)
+                    db.caughtFishDao().getAll()
+                }
+            }
+
             return runBlocking {
                 executeGetAllQuery(context).await()
-            }
-        }
-
-        private fun executeGetAllQuery(context: Context): Deferred<List<CaughtFish>> {
-            return async(CommonPool) {
-                val db = FishDatabase.get(context)
-                db.caughtFishDao().getAll()
             }
         }
     }
