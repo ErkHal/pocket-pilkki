@@ -14,6 +14,10 @@ import com.android.erkhal.pocket_pilkki.fishCodex.FishCodexActivity
 import com.android.erkhal.pocket_pilkki.fishingBook.FishingBookActivity
 import kotlinx.android.synthetic.main.activity_menu.*
 
+/**
+ * Represents the Menu activity, which is the first activity the player sees when starting the game.
+ * Has navigation to enter the Codex, Fishing Book or to start fishing
+ */
 class MenuActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

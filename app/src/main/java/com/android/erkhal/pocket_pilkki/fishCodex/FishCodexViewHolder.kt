@@ -3,21 +3,19 @@ package com.android.erkhal.pocket_pilkki.fishCodex
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.android.erkhal.pocket_pilkki.DatabaseUtils.Utils
+import com.android.erkhal.pocket_pilkki.utils.Utils
 import com.android.erkhal.pocket_pilkki.R
 import com.android.erkhal.pocket_pilkki.model.FishSpecies
 import kotlinx.android.synthetic.main.fishing_book_entry.view.*
 
-class FishCodexViewHolder(private val codexEntryView: View): RecyclerView.ViewHolder(codexEntryView) {
+class FishCodexViewHolder(private val codexEntryView: View, private val context: Context): RecyclerView.ViewHolder(codexEntryView) {
 
     private lateinit var species: FishSpecies
-    private lateinit var ctx: Context
-    private fun isCaught() = Utils.isCaught(species, ctx)
+    private fun isCaught() = Utils.isCaught(species, context)
 
-    fun assignValues(speciesInformation: FishSpecies, appContext: Context) {
+    fun assignValues(speciesInformation: FishSpecies) {
 
         species = speciesInformation
-        ctx = appContext
 
         codexEntryView.apply {
             share_button.hide()

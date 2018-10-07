@@ -4,6 +4,10 @@ import android.net.Uri
 import com.android.erkhal.pocket_pilkki.R
 import com.android.erkhal.pocket_pilkki.model.FishSpecies
 
+/**
+ * This object stores all different species of fish in a HashSet<FishSpecies>.
+ * Please see FishSpecies class for more information
+ */
 object GlobalFishSpecies {
 
     var species = HashSet<FishSpecies>()

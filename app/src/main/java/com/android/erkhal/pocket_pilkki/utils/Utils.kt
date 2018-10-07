@@ -1,4 +1,4 @@
-package com.android.erkhal.pocket_pilkki.DatabaseUtils
+package com.android.erkhal.pocket_pilkki.utils
 
 import android.content.Context
 import com.android.erkhal.pocket_pilkki.R

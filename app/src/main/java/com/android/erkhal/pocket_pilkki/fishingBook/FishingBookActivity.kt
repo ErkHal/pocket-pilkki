@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.android.erkhal.pocket_pilkki.DatabaseUtils.Utils
+import com.android.erkhal.pocket_pilkki.utils.Utils
 import com.android.erkhal.pocket_pilkki.R
 import kotlinx.android.synthetic.main.fishing_book_activity.*
 
+const val GRID_COLUMN_COUNT = 2
 class FishingBookActivity: Activity() {
     private lateinit var fishingBookLayoutManager: RecyclerView.LayoutManager
     private lateinit var fishingBookAdapter: CaughtFishAdapter
@@ -22,7 +23,7 @@ class FishingBookActivity: Activity() {
 
         val allCaughtFish = Utils.getAllCaughtFish(this)
         fishingBookAdapter = CaughtFishAdapter(this, allCaughtFish)
-        fishingBookLayoutManager = GridLayoutManager(this, 2)
+        fishingBookLayoutManager = GridLayoutManager(this, GRID_COLUMN_COUNT)
 
         fish_recycler_view.apply {
                     adapter = fishingBookAdapter

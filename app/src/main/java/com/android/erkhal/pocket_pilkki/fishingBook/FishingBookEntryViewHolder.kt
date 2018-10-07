@@ -9,7 +9,7 @@ import android.os.Environment
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
-import com.android.erkhal.pocket_pilkki.DatabaseUtils.Utils
+import com.android.erkhal.pocket_pilkki.utils.Utils
 import com.android.erkhal.pocket_pilkki.R
 import com.android.erkhal.pocket_pilkki.model.CaughtFish
 import kotlinx.android.synthetic.main.fishing_book_entry.view.*

@@ -14,10 +14,10 @@ class FishSpeciesAdapter(private val context: Context, private val speciesDatase
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FishCodexViewHolder {
         val fishCodexEntryView = LayoutInflater.from(parent.context).inflate(R.layout.fishing_book_entry, parent, false)
-        return FishCodexViewHolder(fishCodexEntryView)
+        return FishCodexViewHolder(fishCodexEntryView, context)
     }
 
     override fun onBindViewHolder(viewHolder: FishCodexViewHolder, position: Int) {
-        viewHolder.assignValues(GlobalFishSpecies.species.toList()[position], context)
+        viewHolder.assignValues(GlobalFishSpecies.species.toList()[position])
     }
 }

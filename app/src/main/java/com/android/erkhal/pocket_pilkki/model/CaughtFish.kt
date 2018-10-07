@@ -4,6 +4,10 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import java.sql.Date
 
+/**
+ * This class represents a fish that is caught by the player.
+ * It gets the icon and the model from the resource identifier of that fish's species
+ */
 @Entity
 data class CaughtFish(
 

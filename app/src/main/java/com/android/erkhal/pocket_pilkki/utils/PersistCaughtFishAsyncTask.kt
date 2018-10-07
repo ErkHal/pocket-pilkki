@@ -1,4 +1,4 @@
-package com.android.erkhal.pocket_pilkki.DatabaseUtils
+package com.android.erkhal.pocket_pilkki.utils
 
 import android.os.AsyncTask
 import android.util.Log
