@@ -12,12 +12,12 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
-import com.android.erkhal.pocket_pilkki.utils.PersistCaughtFishAsyncTask
-import com.android.erkhal.pocket_pilkki.utils.Utils
 import com.android.erkhal.pocket_pilkki.fishingBook.FishingBookActivity
 import com.android.erkhal.pocket_pilkki.global.GlobalFishSpecies
 import com.android.erkhal.pocket_pilkki.model.CaughtFish
 import com.android.erkhal.pocket_pilkki.persistence.FishDatabase
+import com.android.erkhal.pocket_pilkki.utils.PersistCaughtFishAsyncTask
+import com.android.erkhal.pocket_pilkki.utils.Utils
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
 import com.google.ar.sceneform.AnchorNode
@@ -178,7 +178,7 @@ class PilkkiArActivity : AppCompatActivity(),
         catchingModeOn = true
         reel_sound.start()
         vibrator.vibrate(VibrationEffect.createOneShot(CATCHING_MODE_DURATION_MILLIS, VibrationEffect.DEFAULT_AMPLITUDE))
-        this.run {
+        this.runOnUiThread {
             Handler().postDelayed({ catchingModeOn = false }, CATCHING_MODE_DURATION_MILLIS)
         }
     }
