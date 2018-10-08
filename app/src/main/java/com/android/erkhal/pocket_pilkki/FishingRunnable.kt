@@ -1,6 +1,5 @@
 package com.android.erkhal.pocket_pilkki
 
-import android.content.Context
 import android.util.Log
 import java.util.*
 

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationListener
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.os.Handler
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.support.v4.app.ActivityCompat
+import android.preference.PreferenceManager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -48,6 +50,7 @@ import io.reactivex.disposables.Disposable
 const val CATCHING_MODE_DURATION_MILLIS: Long = 1000
 const val PROGRESS_INCREMENT_COOLDOWN = 1000
 const val PROGRESS_DECREMENT_COOLDOWN = 200
+const val COMPLETED_ONBOARDING_PREF_NAME = "completedOnboarding"
 
 /**
  * This class represents the main gameplay activity, which consists of the AR camera view and the
@@ -108,6 +111,8 @@ class PilkkiArActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pilkki_ar)
 
+        showOnBoardingIfNecessary()
+
         setupRenderables()
 
         arFragment = ar_fragment as ArFragment
@@ -122,8 +127,9 @@ class PilkkiArActivity : AppCompatActivity(),
         // Construct a FusedLocationProviderClient
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-        // Get permission for location
+        // Get permission for location if not already accepted
         getLocationPermission()
+        getDeviceLocation()
 
         // Media player initializations for sound FX
         reel_sound = MediaPlayer.create(this, R.raw.reeling)
@@ -150,6 +156,32 @@ class PilkkiArActivity : AppCompatActivity(),
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        quitFishing()
+        tvLakeName.text = ""
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getDeviceLocation()
+    }
+
+    override fun onActivityReenter(resultCode: Int, data: Intent?) {
+        super.onActivityReenter(resultCode, data)
+        getDeviceLocation()
+    }
+
+    // Shows the onboarding introduction if the player hasn't seen it yet
+    private fun showOnBoardingIfNecessary() {
+        PreferenceManager.getDefaultSharedPreferences(this).apply {
+            if (!getBoolean(COMPLETED_ONBOARDING_PREF_NAME, false)) {
+                // The player hasn't seen the OnboardingFragment yet, so show it
+                startActivity(Intent(this@PilkkiArActivity, IntroductionActivity::class.java))
+            }
+        }
+    }
+
     private fun openFishingBook() {
         val openFishingBookIntent = Intent(this, FishingBookActivity::class.java)
         startActivity(openFishingBookIntent)
@@ -161,6 +193,7 @@ class PilkkiArActivity : AppCompatActivity(),
         }
         fishingPondNode?.setParent(null)
         tvProgressBar.text = getString(R.string.progress_bar_finding_spot)
+        advancement = 0
         arFragment.arSceneView.planeRenderer.isEnabled = true
         fishingModeOn = false
         catchingModeOn = false
@@ -244,7 +277,15 @@ class PilkkiArActivity : AppCompatActivity(),
     }
 
     private fun spawnFishingPond(hitResult: HitResult) {
-        tvLakeName.text = "Fishing at: $lakeName"
+
+        if(mLocationPermissionGranted) {
+            tvLakeName.text = "Fishing at: $lakeName"
+                if (lakeName == null) {
+                    getDeviceLocation()
+                }
+        } else {
+            tvLakeName.text = "Fishing at: Peräjärvi"
+        }
 
         if (!fishingModeOn) {
             fishingPondAnchor = hitResult.createAnchor()
@@ -362,7 +403,6 @@ class PilkkiArActivity : AppCompatActivity(),
      */
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
-            getDeviceLocation()
         } else {
             requestPermissions(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), MY_PERMISSION_FINE_LOCATION)
         }
