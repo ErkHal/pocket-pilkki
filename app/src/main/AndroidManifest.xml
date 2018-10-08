@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"
@@ -31,7 +34,8 @@
         <activity android:name=".fishingBook.FishingBookActivity"/>
         <activity android:name=".fishCodex.FishCodexActivity" />
 
-        <meta-data android:name="com.google.ar.core" android:value="required"/>
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA1qgC1qiTd_WPu37eVJ8w1RfU8xsgrY7w"/>
     </application>
 
 </manifest>

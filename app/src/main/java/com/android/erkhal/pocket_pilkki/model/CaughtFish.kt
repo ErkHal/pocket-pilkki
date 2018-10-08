@@ -17,6 +17,7 @@ data class CaughtFish(
 
         val length: Float,
         val weight: Float,
+        var location: String?,
         var caughtTimestamp: Long?) {
 
     override fun toString(): String {

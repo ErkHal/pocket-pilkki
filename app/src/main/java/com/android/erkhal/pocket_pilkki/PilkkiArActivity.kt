@@ -2,22 +2,31 @@ package com.android.erkhal.pocket_pilkki
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import com.android.erkhal.pocket_pilkki.fishingBook.FishingBookActivity
 import com.android.erkhal.pocket_pilkki.global.GlobalFishSpecies
 import com.android.erkhal.pocket_pilkki.model.CaughtFish
 import com.android.erkhal.pocket_pilkki.persistence.FishDatabase
+import com.android.erkhal.pocket_pilkki.remote.IGoogleAPIService
 import com.android.erkhal.pocket_pilkki.utils.PersistCaughtFishAsyncTask
 import com.android.erkhal.pocket_pilkki.utils.Utils
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
 import com.google.ar.sceneform.AnchorNode
@@ -26,10 +35,14 @@ import com.google.ar.sceneform.math.Vector3
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_pilkki_ar.*
 import kotlinx.android.synthetic.main.dialog_caught_fish_info.view.*
 import java.util.*
 import kotlin.collections.HashMap
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 // Constants
 const val CATCHING_MODE_DURATION_MILLIS: Long = 1000
@@ -44,6 +57,15 @@ const val PROGRESS_DECREMENT_COOLDOWN = 200
 class PilkkiArActivity : AppCompatActivity(),
         AccelerometerController.AcceleroMeterControllerListener,
         FishingRunnable.OnFishGnawingListener {
+
+    // Places API stuff
+    private lateinit var mFusedLocationProviderClient : FusedLocationProviderClient
+    private val MY_PERMISSION_FINE_LOCATION = 101
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    private var mLocationPermissionGranted = false
+    private lateinit var mLocation : Location
+    private var lakeName : String? = null
+
 
     //This is toggled to true when the fish is gnawing the bait
     private var catchingModeOn = false
@@ -96,6 +118,12 @@ class PilkkiArActivity : AppCompatActivity(),
                 }
 
         tvProgressBar.text = getString(R.string.progress_bar_finding_spot)
+
+        // Construct a FusedLocationProviderClient
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+        // Get permission for location
+        getLocationPermission()
 
         // Media player initializations for sound FX
         reel_sound = MediaPlayer.create(this, R.raw.reeling)
@@ -201,6 +229,7 @@ class PilkkiArActivity : AppCompatActivity(),
         catchingModeOn = false
         fishingRunnable?.quit()
         currentFish?.caughtTimestamp = Date().time
+        currentFish?.location = lakeName
 
         smallSplash_sound.start()
 
@@ -215,6 +244,7 @@ class PilkkiArActivity : AppCompatActivity(),
     }
 
     private fun spawnFishingPond(hitResult: HitResult) {
+        tvLakeName.text = "Fishing at: $lakeName"
 
         if (!fishingModeOn) {
             fishingPondAnchor = hitResult.createAnchor()
@@ -321,5 +351,67 @@ class PilkkiArActivity : AppCompatActivity(),
         renderableFishingPond.thenAccept { it ->
             fishingPondRenderable = it
         }
+    }
+
+
+    private fun getLocationPermission() {
+    /*
+     * Request location permission, so that we can get the location of the
+     * device. The result of the permission request is handled by a callback,
+     * onRequestPermissionsResult.
+     */
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+            getDeviceLocation()
+        } else {
+            requestPermissions(arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), MY_PERMISSION_FINE_LOCATION)
+        }
+    }
+
+    private val placesApiServe by lazy {
+        IGoogleAPIService.create()
+    }
+
+    private fun getDeviceLocation() {
+
+            if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                mFusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
+
+                    if (location != null) {
+                        mLocation = location
+
+                        Log.d("lat", "${location.latitude}")
+                        Log.d("lon", "${location.longitude}")
+
+
+                        val disposable =
+                                placesApiServe.getLakes(
+                                        "${location.latitude},${location.longitude}",
+                                        "5000",
+                                        "natural_feature",
+                                        "lake",
+                                        "AIzaSyA1qgC1qiTd_WPu37eVJ8w1RfU8xsgrY7w")
+                                        .subscribeOn(Schedulers.io())
+                                        .subscribe(
+                                                { result ->
+                                                    // assign first lake name that it finds to the pond
+
+                                                    if(result.results[0] != null) {
+                                                        lakeName = result.results[0].name
+                                                    } else {
+                                                        lakeName = "Peräjärvi"
+                                                    }
+                                                }
+
+                                                ,
+                                                { error -> Log.d("Error: ",error.message) }
+                                        )
+
+                        if (disposable != null) compositeDisposable.add(disposable)
+                    }
+                }
+            } else {
+                getLocationPermission()
+            }
     }
 }

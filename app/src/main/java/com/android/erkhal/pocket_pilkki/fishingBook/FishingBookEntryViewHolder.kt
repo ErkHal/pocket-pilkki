@@ -69,6 +69,7 @@ class FishingBookEntryViewHolder(private val view: View, val context: Context) :
         view.fish_measurements.text = context.getString(
                 R.string.fish_measurements, fish.getFishLength(), fish.getFishWeight())
         view.fish_caught_date.text = context.getString(R.string.fish_caught_on, fish.getFishCaughtDate().toString())
+        view.fish__caught_location.text = context.getString(R.string.fish_caught_location, fish.location)
         //Accessibility strings
         view.fish_entry_species.contentDescription = context.getString(fish.species)
         view.fish_measurements.contentDescription = context.getString(
