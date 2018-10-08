@@ -3,9 +3,9 @@ package com.android.erkhal.pocket_pilkki.fishCodex
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.android.erkhal.pocket_pilkki.utils.Utils
 import com.android.erkhal.pocket_pilkki.R
 import com.android.erkhal.pocket_pilkki.model.FishSpecies
+import com.android.erkhal.pocket_pilkki.utils.Utils
 import kotlinx.android.synthetic.main.fishing_book_entry.view.*
 
 class FishCodexViewHolder(private val codexEntryView: View, private val context: Context): RecyclerView.ViewHolder(codexEntryView) {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_startbtn">Go fishing</string>
+    <string name="onboarding_title_0">Finding a surface</string>
+    <string name="onboarding_title_1">Spawning the pond</string>
+    <string name="onboarding_title_2">Fishing</string>
+    <string name="onboarding_title_3">Retrieving the fish</string>
+    <string name="onboarding_description_0">Find a plane by pointing your camera to a flat surface,
+        after the calibration icon has disappeared</string>
+    <string name="onboarding_description_1">Tap on the plane to spawn a fishing pond and start fishing</string>
+    <string name="onboarding_description_2">When your phone plays a reeling sound and vibrates,
+        jerk your phone firmly to advance the progress meter.</string>
+    <string name="onboarding_description_3">When the progress bar is full, a fish appears. Tap on it to examine it.
+    Then you can decide if you want to keep it or release it back.</string>
+</resources>

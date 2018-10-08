@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.android.erkhal.pocket_pilkki.utils.Utils
 import com.android.erkhal.pocket_pilkki.R
+import com.android.erkhal.pocket_pilkki.utils.Utils
 import kotlinx.android.synthetic.main.fishing_book_activity.*
 
 const val GRID_COLUMN_COUNT = 2

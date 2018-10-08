@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.preference.PreferenceManager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -35,6 +36,7 @@ import kotlin.collections.HashMap
 const val CATCHING_MODE_DURATION_MILLIS: Long = 1000
 const val PROGRESS_INCREMENT_COOLDOWN = 1000
 const val PROGRESS_DECREMENT_COOLDOWN = 200
+const val COMPLETED_ONBOARDING_PREF_NAME = "completedOnboarding"
 
 /**
  * This class represents the main gameplay activity, which consists of the AR camera view and the
@@ -86,6 +88,8 @@ class PilkkiArActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pilkki_ar)
 
+        showOnBoardingIfNecessary()
+
         setupRenderables()
 
         arFragment = ar_fragment as ArFragment
@@ -119,6 +123,16 @@ class PilkkiArActivity : AppCompatActivity(),
         fishingBookButton.setOnClickListener {
             quitFishing()
             openFishingBook()
+        }
+    }
+
+    // Shows the onboarding introduction if the player hasn't seen it yet
+    private fun showOnBoardingIfNecessary() {
+        PreferenceManager.getDefaultSharedPreferences(this).apply {
+            if (!getBoolean(COMPLETED_ONBOARDING_PREF_NAME, false)) {
+                // The player hasn't seen the OnboardingFragment yet, so show it
+                startActivity(Intent(this@PilkkiArActivity, IntroductionActivity::class.java))
+            }
         }
     }
 
