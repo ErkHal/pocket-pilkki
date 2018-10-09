@@ -15,6 +15,8 @@ const val SHAKE_THRESHOLD_ACTIVITY = 1.5f // G-Force required for fish jerk
  * Takes measurements about the phone's accelerometer, and uses that to determine when the player
  * has jerked the phone enough to trigger any action. The constant SHAKE_THRESHOLD_ACTIVITY
  * is used to calibrate the needed G-force the phone needs to receive before acting on it.
+ *
+ * We apply the pythagorean theorem to the different components of the accelerometer to measure g-force
  */
 class AccelerometerController(private val context: Context): SensorEventListener {
 

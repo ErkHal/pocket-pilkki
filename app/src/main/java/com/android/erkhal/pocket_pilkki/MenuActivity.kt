@@ -6,12 +6,14 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.view.Window
 import android.view.WindowManager
 import com.android.erkhal.pocket_pilkki.fishCodex.FishCodexActivity
 import com.android.erkhal.pocket_pilkki.fishingBook.FishingBookActivity
 import kotlinx.android.synthetic.main.activity_menu.*
+import kotlinx.android.synthetic.main.credits.view.*
 
 /**
  * Represents the Menu activity, which is the first activity the player sees when starting the game.
@@ -45,6 +47,10 @@ class MenuActivity : AppCompatActivity() {
         btnCodex.setOnClickListener {
             openFishCodex()
         }
+
+        btnSettings.setOnClickListener {
+            showCredits()
+        }
     }
 
     private fun openFishCodex() {
@@ -66,5 +72,22 @@ class MenuActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.ACCESS_FINE_LOCATION), 0)
         }
+    }
+
+    //Inflates the AlertDialog's view and populates the data in the fish layout
+    private fun showCredits() {
+
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setCancelable(false)
+        val inflatedCreditsView = layoutInflater.inflate(R.layout.credits, null)
+        dialogBuilder.setView(inflatedCreditsView)
+
+        inflatedCreditsView.tvCredits.text = getString(R.string.credits)
+
+        dialogBuilder.setPositiveButton(R.string.close_credits) { _, _ ->
+
+        }
+
+        dialogBuilder.create().show()
     }
 }

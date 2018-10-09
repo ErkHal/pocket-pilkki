@@ -48,6 +48,7 @@
 
     <string name="dialog_fish_caught">Fish caught !</string>
     <string name="fish_caught_positive">Save to my fish</string>
+    <string name="close_credits">Close</string>
     <string name="fish_caught_negative">Release</string>
     <string name="fish_caught_view_species">Species:</string>
     <string name="fish_caught_view_measurements">Measurements:</string>
@@ -56,4 +57,22 @@
     <string name="fishspecies_not_yet_caught">Not yet caught !</string>
     <string name="fishspecies_caught">Caught this one !</string>
     <string name="fish_caught_location">Caught at: %1$s</string>
+    <string name="fishing_at">-</string>
+    <string name="credits">
+        Pocket Fishing \n
+        by \n
+        Erkki Halinen &amp; Oskari Tamminen \n
+        - \n
+        All 3D models \n
+        Poly by Google \n
+        - \n
+        Sound effects \n
+        zapsplat.com &amp; Erkki Halinen \n
+        - \n
+        Button designs \n
+        designshock.com
+    </string>
+
+
+
 </resources>

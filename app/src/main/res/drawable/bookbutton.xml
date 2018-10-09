@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_pressed="true"
-        android:drawable="@drawable/bookb" />
+        android:drawable="@drawable/defaultmenu" />
     <item
-        android:drawable="@drawable/booka" />
+        android:drawable="@drawable/tapmenu" />
 </selector>

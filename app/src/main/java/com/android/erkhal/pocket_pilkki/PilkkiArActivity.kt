@@ -123,6 +123,8 @@ class PilkkiArActivity : AppCompatActivity(),
                 }
 
         tvProgressBar.text = getString(R.string.progress_bar_finding_spot)
+        tvProgressBar.setTextColor(getColor(R.color.material_deep_teal_200))
+        tvLakeName.setTextColor(getColor(R.color.material_deep_teal_200))
 
         // Construct a FusedLocationProviderClient
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -164,6 +166,7 @@ class PilkkiArActivity : AppCompatActivity(),
 
     override fun onResume() {
         super.onResume()
+        rodView.setImageResource(R.drawable.fishingrod)
         getDeviceLocation()
     }
 
@@ -278,13 +281,12 @@ class PilkkiArActivity : AppCompatActivity(),
 
     private fun spawnFishingPond(hitResult: HitResult) {
 
-        if(mLocationPermissionGranted) {
-            tvLakeName.text = "Fishing at: $lakeName"
-                if (lakeName == null) {
-                    getDeviceLocation()
-                }
+         if(mLocationPermissionGranted && lakeName != null) {
+            tvLakeName.text = "$lakeName"
         } else {
-            tvLakeName.text = "Fishing at: Peräjärvi"
+            lakeName = "Peräjärvi"
+            getDeviceLocation()
+            tvLakeName.text = "$lakeName"
         }
 
         if (!fishingModeOn) {
@@ -436,10 +438,10 @@ class PilkkiArActivity : AppCompatActivity(),
                                                 { result ->
                                                     // assign first lake name that it finds to the pond
 
-                                                    if(result.results[0] != null) {
-                                                        lakeName = result.results[0].name
+                                                    lakeName = if(result.results[0] != null) {
+                                                        result.results[0].name
                                                     } else {
-                                                        lakeName = "Peräjärvi"
+                                                        "Peräjärvi"
                                                     }
                                                 }
 
@@ -453,5 +455,9 @@ class PilkkiArActivity : AppCompatActivity(),
             } else {
                 getLocationPermission()
             }
+
+        if (fishingModeOn && lakeName !=null){
+            tvLakeName.text = "$lakeName"
+        }
     }
 }
