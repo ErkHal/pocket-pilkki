@@ -3,6 +3,7 @@ package com.android.erkhal.pocket_pilkki
 import android.content.Intent
 import android.preference.PreferenceManager
 import android.support.v17.leanback.app.OnboardingFragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

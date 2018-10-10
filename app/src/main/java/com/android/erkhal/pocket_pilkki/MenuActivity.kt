@@ -4,6 +4,7 @@ package com.android.erkhal.pocket_pilkki
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
@@ -51,6 +52,10 @@ class MenuActivity : AppCompatActivity() {
         btnSettings.setOnClickListener {
             showCredits()
         }
+
+        btnGuide.setOnClickListener {
+            showGuide()
+        }
     }
 
     private fun openFishCodex() {
@@ -89,5 +94,9 @@ class MenuActivity : AppCompatActivity() {
         }
 
         dialogBuilder.create().show()
+    }
+
+    private fun showGuide() {
+        startActivity(Intent(this@MenuActivity, IntroductionActivity::class.java))
     }
 }
