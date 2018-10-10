@@ -50,7 +50,13 @@ class IntroductionFragment: OnboardingFragment() {
         this.startButtonText = context.getString(R.string.onboarding_startbtn)
 
         return ImageView(context).apply {
-            setImageResource(R.drawable.pocketfishing)
+            when(this@IntroductionFragment.currentPageIndex) {
+                0 -> setImageResource(R.drawable.introduction_image_0)
+                1 -> setImageResource(R.drawable.introduction_image_1)
+                2 -> setImageResource(R.drawable.introduction_image_2)
+                3 -> setImageResource(R.drawable.introduction_image_3)
+                else -> setImageResource(R.drawable.pocketfishing)
+            }
         }
     }
 
