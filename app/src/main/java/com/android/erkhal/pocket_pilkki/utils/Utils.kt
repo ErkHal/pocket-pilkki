@@ -28,7 +28,7 @@ class Utils {
             return CaughtFish(0, randomFishSpecies.speciesName, fishLength, fishWeight, null, null)
         }
 
-        // Randomization function utilizing probabilities
+        // Randomization function utilizing probability array
         private fun getRandomFishSpecies(): FishSpecies {
 
             val probabilityArray = ArrayList<FishSpecies>()
