@@ -22,7 +22,7 @@ class Utils {
 
         fun getRandomizedFish(): CaughtFish {
             val randomFishSpecies = getRandomFishSpecies()
-            val fishWeight = randomFishSpecies.minWeight + (Random().nextInt(randomFishSpecies.maxWeight.toInt()))
+            val fishWeight = (randomFishSpecies.minWeight + (Random().nextInt(randomFishSpecies.maxWeight.toInt())))/1000
             val fishLength = randomFishSpecies.minLength + (Random().nextInt(randomFishSpecies.maxLength.toInt()))
 
             return CaughtFish(0, randomFishSpecies.speciesName, fishLength, fishWeight, null, null)

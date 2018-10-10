@@ -21,7 +21,7 @@ data class CaughtFish(
         var caughtTimestamp: Long?) {
 
     override fun toString(): String {
-        return "Species: $species Length: ${length}cm Weight: ${weight}g Caught on: ${getFishCaughtDate()}"
+        return "Species: $species Length: ${length}cm Weight: ${weight}kg Caught on: ${getFishCaughtDate()}"
     }
 
     fun getFishLength(): String {
