@@ -58,7 +58,8 @@
     <string name="fish_measurements">Length: %1$s \nWeight: %2$s</string>
     <string name="fish_caught_on">Date: %1$s</string>
     <string name="fishspecies_not_yet_caught">Not yet caught !</string>
-    <string name="fishspecies_caught">Caught this one !</string>
+    <string name="fishspecies_caught"> </string>
+    <string name="fishspecies_description_not_available">\?</string>
     <string name="fish_caught_location">Caught at: %1$s</string>
     <string name="fishing_at">-</string>
     <string name="credits">
