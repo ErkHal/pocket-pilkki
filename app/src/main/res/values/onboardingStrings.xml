@@ -9,6 +9,6 @@
     <string name="onboarding_description_1">Tap on the plane to spawn a fishing pond and start fishing</string>
     <string name="onboarding_description_2">When your phone plays a reeling sound and vibrates,
         jerk your phone firmly in any direction to advance the progress meter.</string>
-    <string name="onboarding_description_3">When the progress bar is full, a fish appears. Tap on it to examine it.</string>
+    <string name="onboarding_description_3">When the progress bar is full, a fish appears. Tap the fish to examine it.</string>
 
 </resources>

@@ -53,6 +53,7 @@ class IntroductionFragment : OnboardingFragment() {
         return ImageView(context).apply {
             setImageResource(R.drawable.introduction_image_0)
             tag = IMAGE_TAG
+            setPadding(0, 20, 0, 20)
         }
     }
 
