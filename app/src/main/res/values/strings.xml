@@ -3,7 +3,10 @@
     <string name="progress_bar">Catching progress</string>
     <string name="progress_bar_finding_spot">Find a fishing spot...</string>
     <string name="resume_fishing">Continue fishing ?</string>
-
+    <string name="menu_go_fishing">GO FISHING</string>
+    <string name="menu_my_fish">My Fish</string>
+    <string name="menu_fish_guide">FISH GUIDE</string>
+    <string name="menu_credits">CREDITS</string>
 
     <string name="fishspecies_salmon">Salmon</string>
     <string name="fishspecies_salmon_description">Salmon are native to tributaries of the North Atlantic and Pacific Ocean.

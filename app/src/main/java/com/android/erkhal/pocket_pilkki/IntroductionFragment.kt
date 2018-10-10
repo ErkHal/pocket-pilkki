@@ -3,16 +3,16 @@ package com.android.erkhal.pocket_pilkki
 import android.content.Intent
 import android.preference.PreferenceManager
 import android.support.v17.leanback.app.OnboardingFragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 
-class IntroductionFragment: OnboardingFragment() {
+const val IMAGE_TAG = "introImage"
+class IntroductionFragment : OnboardingFragment() {
 
     override fun getPageTitle(pageNumber: Int): CharSequence {
-        return when(pageNumber) {
+        return when (pageNumber) {
             0 -> context!!.getString(R.string.onboarding_title_0)
             1 -> context!!.getString(R.string.onboarding_title_1)
             2 -> context!!.getString(R.string.onboarding_title_2)
@@ -22,7 +22,7 @@ class IntroductionFragment: OnboardingFragment() {
     }
 
     override fun getPageDescription(pageNumber: Int): CharSequence {
-        return when(pageNumber) {
+        return when (pageNumber) {
             0 -> context!!.getString(R.string.onboarding_description_0)
             1 -> context!!.getString(R.string.onboarding_description_1)
             2 -> context!!.getString(R.string.onboarding_description_2)
@@ -51,14 +51,16 @@ class IntroductionFragment: OnboardingFragment() {
         this.startButtonText = context.getString(R.string.onboarding_startbtn)
 
         return ImageView(context).apply {
-            when(this@IntroductionFragment.currentPageIndex) {
-                0 -> setImageResource(R.drawable.introduction_image_0)
-                1 -> setImageResource(R.drawable.introduction_image_1)
-                2 -> setImageResource(R.drawable.introduction_image_2)
-                3 -> setImageResource(R.drawable.introduction_image_3)
-                else -> setImageResource(R.drawable.pocketfishing)
-            }
+            setImageResource(R.drawable.introduction_image_0)
+            tag = IMAGE_TAG
         }
+    }
+
+    override fun onPageChanged(newPage: Int, previousPage: Int) {
+        super.onPageChanged(newPage, previousPage)
+        // Find the view that is tagged in the onCreateContentView
+        val imageView = this.view?.findViewWithTag<ImageView>(IMAGE_TAG)
+        imageView?.setImageResource(getCurrentIndexImageResource(this.currentPageIndex))
     }
 
     // Updates preferences so that the introduction is not shown again
@@ -69,5 +71,16 @@ class IntroductionFragment: OnboardingFragment() {
             apply()
         }
         startActivity(Intent(context, PilkkiArActivity::class.java))
+    }
+
+    // Returns the current introduction step's image
+    private fun getCurrentIndexImageResource(index: Int): Int {
+        return when (index) {
+            0 -> R.drawable.introduction_image_0
+            1 -> R.drawable.introduction_image_1
+            2 -> R.drawable.introduction_image_2
+            3 -> R.drawable.introduction_image_3
+            else -> R.drawable.pocketfishing
+        }
     }
 }
